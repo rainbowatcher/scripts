@@ -1,35 +1,38 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
-SCRIPTS_HOME=${SCRIPTS_HOME-$(cd $(dirname $0);pwd)}
+# PROJECT_ROOT=
+SCRIPTS_ROOT=${SCRIPTS_ROOT:=$(cd $(dirname $0); pwd)}
 
-source $SCRIPTS_HOME/common.zsh
+source $SCRIPTS_ROOT/common.zsh
 
 load_all() {
-  ALL=($(ls "$SCRIPTS_HOME/bash/"))
-  for item in "${ALL[@]}"; do
-    source "$SCRIPTS_HOME/bash/${item}"
+  source_all "alias"
+  source_all "function"
+  source_all "completion"
+}
+
+source_all() {
+  local LOCATION=$1
+  local ABS_LOCALTION="$SCRIPTS_ROOT/$1"
+  local FILES=($(ls $ABS_LOCALTION/*))
+  for ITEM in "${FILES[@]}"; do
+    source $ITEM
   done
 }
 
 for arg in "$@"; do
   case "$arg" in
-  all)
+  "all")
     load_all
     ;;
-  proxy)
-    source bash/proxy.sh
+  "completion")
+    source_all "$arg"
     ;;
-  git)
-    command_exists git && source bash/git-alias.sh
+  "alias")
+    source_all "$arg"
     ;;
-  mac)
-    source bash/mac-alias.sh
-    ;;
-  alias)
-    source bash/alias.sh
-    ;;
-  extras)
-    source bash/extras.sh
+  "function")
+    source_all "$arg"
     ;;
   *)
     warn "option [$arg] not exists."
