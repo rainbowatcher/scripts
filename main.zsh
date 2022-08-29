@@ -1,6 +1,5 @@
 #!/usr/bin/env zsh
 
-# PROJECT_ROOT=
 SCRIPTS_ROOT=${SCRIPTS_ROOT:=$(cd $(dirname $0); pwd)}
 
 source $SCRIPTS_ROOT/common.zsh

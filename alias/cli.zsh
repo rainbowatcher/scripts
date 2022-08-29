@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+# z is a shortcut for zoxide
 alias cd='z'
 alias ..='cd ..'
 alias ...='cd ../..'

@@ -5,10 +5,13 @@
 Insert those lines to you `~/.zshrc` to enable these scripts.
 
 ```shell
-SCRIPTS_HOME="/path/to/your/scripts"
+SCRIPTS_ROOT="/path/to/your/scripts"
 # if you want to enable proxy
 HTTP_PROXY_ADDR=http://127.0.0.1:8889
-source $SCRIPTS_HOME/main.zsh all
+source $SCRIPTS_ROOT/main.zsh all
 ```
 
-Remember to change the proxy port number to you own。
+## :exclamation: Attension
+
+- Remember to change the proxy port number to you own.
+- You must install zoxide, exa, ripgrep, fnm, npm in you compute.
