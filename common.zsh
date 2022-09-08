@@ -30,8 +30,8 @@ step() {
   fi
 }
 
-step_end(){
-  unset $INIT_SETP
+step_end() {
+  unset STEP_NUM
 }
 
 judge() {
