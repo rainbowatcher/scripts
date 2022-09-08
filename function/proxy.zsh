@@ -5,60 +5,67 @@ set_npm_proxy() {
   echo "https-proxy=$HTTP_PROXY_ADDR" >> "$HOME/.npmrc"
 }
 
-reset_npm_mirror() {
-  sed -ie 's$home=.*npmmirror.com$home=https://www.npmjs.com$g' "$HOME/.npmrc"
-  sed -ie 's$registry=.*npmmirror.com$registry=https://registry.npmjs.org$g' "$HOME/.npmrc"
-}
-
 unset_npm_proxy() {
   sed -ie '/^proxy/d' "$HOME/.npmrc"
   sed -ie '/^https-proxy/d' "$HOME/.npmrc"
+  judge "unset npm proxy"
 }
 
 set_npm_mirror() {
   sed -ie 's$home=.*$home=https://npmmirror.com$g' $HOME/.npmrc
   sed -ie 's$registry=.*$registry=https://registry.npmmirror.com/$g' $HOME/.npmrc
+  judge "set npm mirror"
+}
+
+reset_npm_mirror() {
+  sed -ie 's$home=.*npmmirror.com$home=https://www.npmjs.com$g' "$HOME/.npmrc"
+  sed -ie 's$registry=.*npmmirror.com$registry=https://registry.npmjs.org$g' "$HOME/.npmrc"
+  judge "reset npm mirror"
 }
 
 set_cli_proxy() {
   export http_proxy=$HTTP_PROXY_ADDR
   export https_proxy=$HTTP_PROXY_ADDR
-}
-
-set_git_proxy() {
-  git config --global http.proxy $HTTP_PROXY_ADDR
-  git config --global https.proxy $HTTP_PROXY_ADDR
+  judge "set cli proxy"
 }
 
 unset_cli_proxy() {
   unset http_proxy
   unset https_proxy
+  judge "unset cli proxy"
+}
+
+set_git_proxy() {
+  git config --global http.proxy $HTTP_PROXY_ADDR
+  git config --global https.proxy $HTTP_PROXY_ADDR
+  judge "set git proxy"
 }
 
 unset_git_proxy() {
   git config --global --unset http.proxy
   git config --global --unset https.proxy
+  judge "unset git proxy"
 }
 
 set_pip_mirror() {
   echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >>~/.config/pip/pip.conf
+  judge "set pip mirror"
 }
 
 reset_pip_mirror() {
   sed -ie '/^index-url/d' ~/.config/pip/pip.conf
+  judge "reset pip mirror"
 }
 
 proxy() {
   if [[ $(export | grep -c 'http[s]*?_proxy') -lt 2 ]]; then
     set_cli_proxy
-    judge "set system proxy"
   else
-    info "system proxy has already set"
+    info "cli proxy has already set"
   fi
 
   if [ ! $(git config --get http.proxy) ]; then
     set_git_proxy
-    judge "set git proxy"
   else
     info "git proxy has already set"
   fi
@@ -68,21 +75,18 @@ proxy() {
   npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
   if [[ $npm_proxy == '' ]]; then
     set_npm_proxy
-    judge "set npm proxy"
   else
     info "npm proxy has already set"
   fi
 
   if [[ $npm_mirror =~ 'npmmirror' ]]; then
     reset_npm_mirror
-    judge "reset npm mirror"
   else
     info "npm mirror has already reset"
   fi
 
   if cat ~/.config/pip/pip.conf | grep tsinghua >/dev/null 2>&1; then
     reset_pip_mirror
-    judge "reset pip mirror"
   else
     info "pip mirror has already reset"
   fi
@@ -91,13 +95,11 @@ proxy() {
 unproxy() {
   if [[ $(export | grep -c 'http[s]*?_proxy') -ne 0 ]]; then
     unset_cli_proxy
-    judge "unset system proxy"
   else
-    info "system proxy has already unset"
+    info "cli proxy has already unset"
   fi
   if [ $(git config --get http.proxy) ]; then
     unset_git_proxy
-    judge "unset git proxy"
   else
     info "git proxy has already unset"
   fi
@@ -107,14 +109,12 @@ unproxy() {
   npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
   if [[ $npm_proxy =~ 'http' ]]; then
     unset_npm_proxy
-    judge "unset npm proxy"
   else
     info "npm proxy has already unset"
   fi
 
   if [[ $npm_mirror =~ 'npmjs.org' ]]; then
     set_npm_mirror
-    judge "set npm use taobao mirror"
   else
     info "taobao mirror has already use"
   fi
@@ -123,7 +123,6 @@ unproxy() {
     info "pip mirror has already set"
   else
     set_pip_mirror
-    judge "set pip mirror"
   fi
 }
 
