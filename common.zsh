@@ -44,3 +44,17 @@ command_exists() {
     return 1
   fi
 }
+
+file_exists() {
+  if [ ! -f "$1" ]; then
+    warn "can't found file $1!"
+    return 1
+  fi
+}
+
+dir_exists() {
+  if [ ! -d "$1" ];then
+    warn "can't found directory $1!"
+    return 1
+  fi
+}
