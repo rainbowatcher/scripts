@@ -39,22 +39,22 @@ judge() {
 }
 
 command_exists() {
-  if ! command -v "$@" >/dev/null 2>&1; then
-    warn "can't found $@ command!"
+  if ! command -v "$1" >/dev/null 2>&1; then
+    info "command $1 not exists!"
     return 1
   fi
 }
 
 file_exists() {
   if [ ! -f "$1" ]; then
-    warn "can't found file $1!"
+    info "file $1 not exists!"
     return 1
   fi
 }
 
 dir_exists() {
   if [ ! -d "$1" ];then
-    warn "can't found directory $1!"
+    info "directory $1 not exists!"
     return 1
   fi
 }
