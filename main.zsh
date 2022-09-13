@@ -3,15 +3,15 @@
 SCRIPTS_ROOT=${SCRIPTS_ROOT:=$(cd $(dirname $0); pwd)}
 
 source $SCRIPTS_ROOT/common.zsh
+SOURCE_LIST=("alias" "function" "completion")
 
 load_all() {
-  source_all "alias"
-  source_all "function"
-  source_all "completion"
+  for SOURCE in "${SOURCE_LIST[@]}"; do
+  source_all "$SOURCE"
+  done
 }
 
 source_all() {
-  local LOCATION=$1
   local ABS_LOCALTION="$SCRIPTS_ROOT/$1"
   local FILES=($(ls $ABS_LOCALTION/*))
   for ITEM in "${FILES[@]}"; do
