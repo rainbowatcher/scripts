@@ -1,5 +1,6 @@
 #!/usr/bin/env zsh
 
+# update your node version
 update_node() {
   if command_exists nvm; then
     local latest_version current_version
