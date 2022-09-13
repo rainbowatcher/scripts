@@ -1,63 +1,63 @@
 #!/usr/bin/env bash
 
-set_npm_proxy() {
+function set_npm_proxy() {
   echo "proxy=$HTTP_PROXY_ADDR" >> "$HOME/.npmrc"
   echo "https-proxy=$HTTP_PROXY_ADDR" >> "$HOME/.npmrc"
 }
 
-unset_npm_proxy() {
+function unset_npm_proxy() {
   sed -ie '/^proxy/d' "$HOME/.npmrc"
   sed -ie '/^https-proxy/d' "$HOME/.npmrc"
   judge "unset npm proxy"
 }
 
-set_npm_mirror() {
+function set_npm_mirror() {
   sed -ie 's$home=.*$home=https://npmmirror.com$g' $HOME/.npmrc
   sed -ie 's$registry=.*$registry=https://registry.npmmirror.com/$g' $HOME/.npmrc
   judge "set npm mirror"
 }
 
-reset_npm_mirror() {
+function reset_npm_mirror() {
   sed -ie 's$home=.*npmmirror.com$home=https://www.npmjs.com$g' "$HOME/.npmrc"
   sed -ie 's$registry=.*npmmirror.com$registry=https://registry.npmjs.org$g' "$HOME/.npmrc"
   judge "reset npm mirror"
 }
 
-set_cli_proxy() {
+function set_cli_proxy() {
   export http_proxy=$HTTP_PROXY_ADDR
   export https_proxy=$HTTP_PROXY_ADDR
   judge "set cli proxy"
 }
 
-unset_cli_proxy() {
+function unset_cli_proxy() {
   unset http_proxy
   unset https_proxy
   judge "unset cli proxy"
 }
 
-set_git_proxy() {
+function set_git_proxy() {
   git config --global http.proxy $HTTP_PROXY_ADDR
   git config --global https.proxy $HTTP_PROXY_ADDR
   judge "set git proxy"
 }
 
-unset_git_proxy() {
+function unset_git_proxy() {
   git config --global --unset http.proxy
   git config --global --unset https.proxy
   judge "unset git proxy"
 }
 
-set_pip_mirror() {
+function set_pip_mirror() {
   echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >>~/.config/pip/pip.conf
   judge "set pip mirror"
 }
 
-reset_pip_mirror() {
+function reset_pip_mirror() {
   sed -ie '/^index-url/d' ~/.config/pip/pip.conf
   judge "reset pip mirror"
 }
 
-proxy() {
+function proxy() {
   if [[ $(export | grep -c 'http[s]*?_proxy') -lt 2 ]]; then
     set_cli_proxy
   else
@@ -92,7 +92,7 @@ proxy() {
   fi
 }
 
-unproxy() {
+function unproxy() {
   if [[ $(export | grep -c 'http[s]*?_proxy') -ne 0 ]]; then
     unset_cli_proxy
   else
@@ -126,7 +126,7 @@ unproxy() {
   fi
 }
 
-reset_brew_mirror() {
+function reset_brew_mirror() {
   # brew 程序本身，Homebrew / Linuxbrew 相同
   unset HOMEBREW_BREW_GIT_REMOTE
   git -C "$(brew --repo)" remote set-url origin https://github.com/Homebrew/brew
@@ -146,7 +146,7 @@ reset_brew_mirror() {
   judge "reset homebrew mirror"
 }
 
-set_brew_mirror() {
+function set_brew_mirror() {
   export HOMEBREW_CORE_GIT_REMOTE="https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git"
   brew tap --custom-remote --force-auto-update homebrew/core https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-core.git
   brew tap --custom-remote --force-auto-update homebrew/cask https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask.git

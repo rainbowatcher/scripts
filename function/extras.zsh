@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 
 # update your node version
-update_node() {
+function update_node() {
   if command_exists nvm; then
     local latest_version current_version
     latest_version=$(nvm ls-remote --lts 16 | tail -1 | grep -o "v(\d{1,2}\.){2}\d{1,2}")
@@ -30,7 +30,7 @@ update_node() {
   fi
 }
 
-update_node_global_packages() {
+function update_node_global_packages() {
   info "start update npm global packages"
   if command_exists npm && command_exists ncu; then
     local outdated
@@ -47,7 +47,7 @@ update_node_global_packages() {
   command_exists pnpm && pnpm update -g
 }
 
-global_update() {
+function global_update() {
   INIT_STEP=0
   step "set proxy"
   command_exists proxy && proxy
@@ -74,7 +74,7 @@ global_update() {
   command_exists sheldon && sheldon lock --update
 }
 
-clean_maven() {
+function clean_maven() {
   if command_exists fd; then
     fd ".*lastUpdated.*?" ~/.m2/repository -x echo delete {} \; -x rm {} \;
     fd '.*\$.*' ~/.m2/repository -x echo delete {} \; -x rm -r {} \;
@@ -84,7 +84,7 @@ clean_maven() {
   fi
 }
 
-clean_aira2() {
+function clean_aira2() {
   if command_exists fd; then
     fd ".*\\.aria2" ~/Downloads -x echo delete {} \; -x rm {} \;
   else
@@ -92,7 +92,7 @@ clean_aira2() {
   fi
 }
 
-global_clean() {
+function global_clean() {
   INIT_STEP=0
   step "clean brew"
   brew cleanup
@@ -114,7 +114,7 @@ global_clean() {
 }
 
 # git ignore template downloader
-gi() {
+function gi() {
   if [[ $# == 1 ]]; then
     curl -sfLw '\n' https://www.toptal.com/developers/gitignore/api/$1 -o .gitignore
     judge "$1.gitignore download"

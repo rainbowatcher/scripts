@@ -7,20 +7,20 @@ RED_COLOR='\033[1;31m'
 BLUE_COLOR='\033[1;34m'
 HIGHLIGHT='\033[1;36m'
 
-info() {
+function info() {
   echo "${GREEN_COLOR}[INFO]${FONT} $@"
 }
 
-warn() {
+function warn() {
   echo "${BLUE_COLOR}[WARN]${FONT} $@"
 }
 
-error() {
+function error() {
   echo "${RED_COLOR}[ERROR]${FONT} $@"
 }
 
 # should set the value of INIT_STEP in the begin of invoke
-step() {
+function step() {
   if [ $STEP_NUM ]; then
     STEP_NUM=$(($STEP_NUM + 1))
     echo -e "${HIGHLIGHT}[STEP - $STEP_NUM]${FONT} $@"
@@ -30,29 +30,29 @@ step() {
   fi
 }
 
-step_end() {
+function step_end() {
   unset STEP_NUM
 }
 
-judge() {
+function judge() {
   [[ 0 -eq $? ]] && info "$@ ${GREEN_COLOR}Done${FONT}" || error "$@ ${RED_COLOR}Fail${FONT}"
 }
 
-command_exists() {
+function command_exists() {
   if ! command -v "$1" >/dev/null 2>&1; then
     info "command $1 not exists!"
     return 1
   fi
 }
 
-file_exists() {
+function file_exists() {
   if [ ! -f "$1" ]; then
     info "file $1 not exists!"
     return 1
   fi
 }
 
-dir_exists() {
+function dir_exists() {
   if [ ! -d "$1" ];then
     info "directory $1 not exists!"
     return 1

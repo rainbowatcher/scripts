@@ -16,7 +16,7 @@ install_node_package() {
   judge "install $@"
 }
 
-eslint_config() {
+function eslint_config() {
   if ! file_exists package.json; then
     warn "please init project first"
     return 1
