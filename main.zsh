@@ -3,19 +3,19 @@
 SCRIPTS_ROOT=${SCRIPTS_ROOT:=$(cd $(dirname $0); pwd)}
 
 source $SCRIPTS_ROOT/common.zsh
-SOURCE_LIST=("alias" "function" "completion")
+source_list=("alias" "function" "completion")
 
 load_all() {
-  for SOURCE in "${SOURCE_LIST[@]}"; do
-  source_all "$SOURCE"
+  for source in "${source_list[@]}"; do
+  source_all "$source"
   done
 }
 
 source_all() {
-  local ABS_LOCALTION="$SCRIPTS_ROOT/$1"
-  local FILES=($(ls $ABS_LOCALTION/*))
-  for ITEM in "${FILES[@]}"; do
-    source $ITEM
+  local abs_localtion="$SCRIPTS_ROOT/$1"
+  local files=($(ls $abs_localtion/*))
+  for item in "${files[@]}"; do
+    source $item
   done
 }
 

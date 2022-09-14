@@ -7,9 +7,9 @@ SCRIPTS_ROOT=${SCRIPTS_ROOT:=$(
 
 source $SCRIPTS_ROOT/common.zsh
 
-README="$SCRIPTS_ROOT/README.md"
+readme="$SCRIPTS_ROOT/README.md"
 
-cat >"$README" <<EOM
+cat >"$readme" <<EOM
 # Rainbow Watcher's personal scripts
 
 ## Quick Start 
@@ -32,15 +32,15 @@ source \$SCRIPTS_ROOT/main.zsh all
 
 EOM
 
-ALIAS_LOCALTION="$SCRIPTS_ROOT/alias"
-FILES=($(ls $ALIAS_LOCALTION/*))
-for ITEM in "${FILES[@]}"; do
-  cat $ITEM |
+alias_localtion="$SCRIPTS_ROOT/alias"
+files=($(ls $alias_localtion/*))
+for item in "${files[@]}"; do
+  cat $item |
     sed -n '/^alias [^-]/p' |
     sed "s/\'//g" |
     sed 's/\"//g' |
     sed 's/\|/\\|/g' |
-    awk -vitem=$(echo $ITEM | awk -F/ '{name=$NF;split(name,splits,".");print splits[1]}') '
+    awk -v item=$(echo $item | awk -F/ '{name=$NF;split(name,splits,".");print splits[1]}') '
   BEGIN {
     print "### " item "\n"
   }
@@ -51,37 +51,36 @@ for ITEM in "${FILES[@]}"; do
   }
   END {
     print ""
-  }' >>"$README"
+  }' >>"$readme"
 done
 
-cat >>"$README" <<EOM
+cat >>"$readme" <<EOM
 ## Completions
 
 EOM
 
-CMP_LOCALTION="$SCRIPTS_ROOT/completion"
-FILES=($(ls $CMP_LOCALTION/*))
-for ITEM in "${FILES[@]}"; do
-  echo $ITEM | awk -F/ '
+cmp_localtion="$SCRIPTS_ROOT/completion"
+files=($(ls $cmp_localtion/*))
+for item in "${files[@]}"; do
+  echo $item | awk -F/ '
   {
-    name=$NF;
-    split(name,splits,".");
-    print "- "splits[1]
+    split($NF, splits, ".");
+    print "- " splits[1]
   }
   END {
     print ""
-  }' >> "$README"
+  }' >> "$readme"
 done
 
-cat >>"$README" <<EOM
+cat >>"$readme" <<EOM
 ## Functions
 
 EOM
 
-FUNC_LOCALTION="$SCRIPTS_ROOT/function"
-FILES=($(ls $FUNC_LOCALTION/*))
-for ITEM in "${FILES[@]}"; do
-  cat $ITEM | awk -vitem=$(echo $ITEM | awk -F/ '{name=$NF;split(name,splits,".");print splits[1]}') \
+func_localtion="$SCRIPTS_ROOT/function"
+files=($(ls $func_localtion/*))
+for item in "${files[@]}"; do
+  cat $item | awk -v item=$(echo $item | awk -F/ '{name=$NF;split(name,splits,".");print splits[1]}') \
   -F'(' '
   BEGIN{
     num=0;
@@ -89,9 +88,10 @@ for ITEM in "${FILES[@]}"; do
   }
   /\(\)/ {
     num+=1;
+    sub("function ", "", $1)
     print num ". " $1
   }
   END {
     print ""
-  }' >> "$README"
+  }' >> "$readme"
 done
