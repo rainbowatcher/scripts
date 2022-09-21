@@ -38,22 +38,27 @@ function judge() {
 }
 
 function command_exists() {
-  if ! command -v "$1" >/dev/null 2>&1; then
-    info "command $1 not exists!"
+  if [ ! "$(command -v $1)" ]; then
     return 1
   fi
 }
 
 function file_exists() {
   if [ ! -f "$1" ]; then
-    info "file $1 not exists!"
     return 1
   fi
 }
 
 function dir_exists() {
-  if [ ! -d "$1" ];then
-    info "directory $1 not exists!"
+  if [ ! -d "$1" ]; then
     return 1
+  fi
+}
+
+# mkdir if directory not exists
+function make_dir() {
+  local dir=$1
+  if dir_exists "$dir"; then
+    mkdir -p "$dir"
   fi
 }
