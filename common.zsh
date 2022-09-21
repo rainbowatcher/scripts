@@ -2,24 +2,23 @@
 
 # Colors
 FONT='\033[0m'
-GREEN_COLOR="\033[1;32m"
-RED_COLOR='\033[1;31m'
-BLUE_COLOR='\033[1;34m'
+GREEN="\033[1;32m"
+RED='\033[1;31m'
+YELLOW='\033[1;33m'
 HIGHLIGHT='\033[1;36m'
 
 function info() {
-  echo "${GREEN_COLOR}[INFO]${FONT} $@"
+  echo "${GREEN}[INFO]${FONT} $@"
 }
 
 function warn() {
-  echo "${BLUE_COLOR}[WARN]${FONT} $@"
+  echo "${YELLOW}[WARN]${FONT} $@"
 }
 
 function error() {
-  echo "${RED_COLOR}[ERROR]${FONT} $@"
+  echo "${RED}[ERROR]${FONT} $@"
 }
 
-# should set the value of INIT_STEP in the begin of invoke
 function step() {
   if [ $STEP_NUM ]; then
     STEP_NUM=$(($STEP_NUM + 1))
@@ -35,7 +34,7 @@ function step_end() {
 }
 
 function judge() {
-  [[ 0 -eq $? ]] && info "$@ ${GREEN_COLOR}Done${FONT}" || error "$@ ${RED_COLOR}Fail${FONT}"
+  [[ 0 -eq $? ]] && info "$@ ${GREEN}Done${FONT}" || error "$@ ${RED}Fail${FONT}"
 }
 
 function command_exists() {
