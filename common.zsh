@@ -22,7 +22,7 @@ function error() {
 function step() {
   if [ $STEP_NUM ]; then
     STEP_NUM=$(($STEP_NUM + 1))
-    echo -e "${HIGHLIGHT}[STEP - $STEP_NUM]${FONT} $@"
+    echo "${HIGHLIGHT}[STEP - $STEP_NUM]${FONT} $@"
   else
     STEP_NUM=0
     step $@
@@ -61,4 +61,19 @@ function make_dir() {
   if dir_exists "$dir"; then
     mkdir -p "$dir"
   fi
+}
+
+function move_file() {
+  local source_file=$1
+  local target_folder=$2
+
+  if [ -f "$source_file" ]; then
+    mv -v "$source_file" "$target_folder/"
+  else
+    warn "can't mv file - $source_file"
+  fi
+}
+
+function list_files() {
+  find "$1" -d 1 -type f | awk '{gsub(" ","\\ ");print}'
 }
