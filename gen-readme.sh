@@ -17,7 +17,7 @@ cat >"$readme" <<EOM
 Write it to your \`~/.zshrc\` to enable those scripts.
 
 \`\`\`shell
-SCRIPTS_ROOT="/path/to/your/scripts"
+SCRIPTS_ROOT="/path/to/project/location"
 # if you want to enable proxy
 HTTP_PROXY_ADDR=http://127.0.0.1:8889
 source \$SCRIPTS_ROOT/main.zsh all
@@ -26,7 +26,11 @@ source \$SCRIPTS_ROOT/main.zsh all
 ## :exclamation: Attension
 
 - Remember to change the proxy port number to you own.
-- You must install zoxide, exa, ripgrep, fnm, npm, jq in you compute.
+- You better install [zoxide](https://github.com/ajeetdsouza/zoxide), exa, ripgrep, fnm, node, jq, gum through below command.
+
+\`\`\`shell
+brew install zoxide exa ripgrep fnm node jq gum
+\`\`\`
 
 ## Alias
 
@@ -86,7 +90,7 @@ for item in "${files[@]}"; do
     num=0;
     print "### " item "\n"
   }
-  /\(\)/ {
+  /function/ {
     num+=1;
     sub("function ", "", $1)
     print num ". " $1
