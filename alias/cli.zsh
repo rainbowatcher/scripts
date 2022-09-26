@@ -26,3 +26,8 @@ alias -s zip="unzip -l"
 alias -s rar="unrar l"
 alias -s tar="tar -tf"
 alias -s tar.gz="tar -tf"
+
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6? (addr:)?\s?((([0-9]+.){3}[0-9]+)|[a-fA-F0-9:]+)' | awk '{sub(/inet6? (addr:)? ?/, \"\"); print}'"
