@@ -31,6 +31,9 @@ function step() {
 
 function step_end() {
   unset STEP_NUM
+  if [ $# -gt 0 ];then
+    echo "${HIGHLIGHT}[STEP - END]${FONT} $@"
+  fi
 }
 
 function judge() {
