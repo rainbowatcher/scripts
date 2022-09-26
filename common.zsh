@@ -66,6 +66,7 @@ function make_dir() {
   fi
 }
 
+# move file to target 
 function move_file() {
   local source_file=$1
   local target_folder=$2
@@ -77,6 +78,24 @@ function move_file() {
   fi
 }
 
+# list only files in current directory
 function list_files() {
-  find "$1" -d 1 -type f | awk '{gsub(" ","\\ ");print}'
+  find "$1" -d 1 -type f #| awk '{gsub(" ","\\ ");print}'
+}
+
+# Create a new directory and enter it
+function dir() {
+	mkdir -p "$@" && cd "$_";
+}
+
+function o() {
+	if [ $# -eq 0 ]; then
+		open .;
+	else
+		open "$@";
+	fi;
+}
+
+function get_shell(){
+  echo $SHELL | awk -F'/' '{print $NF}'
 }
