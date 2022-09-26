@@ -40,7 +40,7 @@ function judge() {
   [[ 0 -eq $? ]] && info "$@ ${GREEN}Done${FONT}" || error "$@ ${RED}Fail${FONT}"
 }
 
-function command_exists() {
+function cmd_exists() {
   if [ ! "$(command -v $1)" ]; then
     return 1
   fi
@@ -61,7 +61,7 @@ function dir_exists() {
 # mkdir if directory not exists
 function make_dir() {
   local dir=$1
-  if dir_exists "$dir"; then
+  if ! dir_exists "$dir"; then
     mkdir -p "$dir"
   fi
 }

@@ -1,13 +1,13 @@
 #!/usr/bin/env zsh
 
 install_node_package() {
-  if command_exists ni; then
+  if cmd_exists ni; then
     ni "$@"
-  elif command_exists pnpm; then
+  elif cmd_exists pnpm; then
     pnpm i "$@"
-  elif command_exists yarn; then
+  elif cmd_exists yarn; then
     yarn add "$@"
-  elif command_exists npm; then
+  elif cmd_exists npm; then
     npm i "$@"
   else
     warn "no package manager found!"
