@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 function set_npm_proxy() {
-  echo "proxy=$HTTP_PROXY_ADDR" >> "$HOME/.npmrc"
-  echo "https-proxy=$HTTP_PROXY_ADDR" >> "$HOME/.npmrc"
+  echo "proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
+  echo "https-proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
 }
 
 function unset_npm_proxy() {
@@ -155,4 +155,70 @@ function set_brew_mirror() {
   brew tap --custom-remote --force-auto-update homebrew/cask-versions https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-cask-versions.git
   brew tap --custom-remote --force-auto-update homebrew/command-not-found https://mirrors.tuna.tsinghua.edu.cn/git/homebrew/homebrew-command-not-found.git
   judge "set homebrew mirror"
+}
+
+function set_v2ray_route() {
+  step "choose v2ray install path"
+  local v2ray_home=$(gum input --placeholder='/usr/local/opt/v2ray type to replace')
+  v2ray_home=${v2ray_home:-"/usr/local/opt/v2ray"}
+  route_path="$v2ray_home/share/v2ray"
+  echo "set v2ray install path: /usr/local/opt/v2ray"
+
+  step "backup dat files"
+  geoip_file_path="$route_path/geoip.dat"
+  geosite_file_path="$route_path/geosite.dat"
+  [ -f "$geoip_file_path.bak" ] && rm -f "$geoip_file_path.bak"; echo "removed $geoip_file_path.bak"
+  [ -f "$geosite_file_path.bak" ] && rm -f "$geosite_file_path.bak"; echo "removed $geosite_file_path.bak"
+  [ -f "$geoip_file_path" ] && mv -v "$geoip_file_path" "$geoip_file_path.bak"
+  [ -f "$geosite_file_path" ] && mv -v "$geosite_file_path" "$geosite_file_path.bak"
+
+  step "download dat file"
+  remote_ip_file="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
+  remote_site_file="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+  status_code=$(get_status_code "$remote_ip_file")
+  if [ $status_code -ne 200 ];then
+    remote_ip_file="https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
+    remote_site_file="https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
+  fi
+  gum spin --title="downloading geoip.dat" --show-output -- \
+  curl -sSL "$remote_ip_file" -o "$geoip_file_path"
+  gum spin --title="downloading geosite.dat" --show-output -- \
+  curl -sSL "$remote_site_file" -o "$geosite_file_path"
+
+  step "set recommended route config"
+  echo "=== IP Direct ==="
+  echo "223.5.5.5/32"
+  echo "119.29.29.29/32"
+  echo "180.76.76.76/32"
+  echo "114.114.114.114/32"
+  echo "geoip:cn"
+  echo "geoip:private"
+  echo ""
+  echo "=== Domain Direct ==="
+  echo "juneyaoair.com"
+  echo "geosite:apple-cn"
+  echo "geosite:cn"
+  echo ""
+  echo "=== IP Proxy ==="
+  echo "1.1.1.1/32"
+  echo "1.0.0.1/32"
+  echo "8.8.8.8/32"
+  echo "8.8.4.4/32"
+  echo "geoip:us"
+  echo "geoip:ca"
+  echo "geoip:telegram"
+  echo ""
+  echo "=== Domain Proxy ==="
+  echo "geosite:geolocation-!cn"
+  echo "geosite:gfw"
+  echo "geosite:greatfire"
+  echo ""
+  echo "=== Domain Block ==="
+  echo "geosite:category-ads-all"
+  echo ""
+  info "you need set the route config manualy"
+
+  step "set recommended dns config"
+  info "refer: https://github.com/Loyalsoldier/v2ray-rules-dat#%E9%85%8D%E7%BD%AE%E5%8F%82%E8%80%83%E4%B8%8B%E9%9D%A2-"
+  step_end
 }
