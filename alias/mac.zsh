@@ -4,4 +4,3 @@ alias showfiles="defaults write com.apple.finder AppleShowAllFiles -bool true &&
 alias hidefiles="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
 alias spotlightoff="sudo mdutil -a -i off"
 alias spotlighton="sudo mdutil -a -i on"
-alias o="open ."

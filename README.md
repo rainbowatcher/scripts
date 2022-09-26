@@ -1,11 +1,11 @@
 # Rainbow Watcher's personal scripts
 
-## Quick Start
+## Quick Start 
 
 Write it to your `~/.zshrc` to enable those scripts.
 
 ```shell
-SCRIPTS_ROOT="/path/to/your/scripts"
+SCRIPTS_ROOT="/path/to/project/location"
 # if you want to enable proxy
 HTTP_PROXY_ADDR=http://127.0.0.1:8889
 source $SCRIPTS_ROOT/main.zsh all
@@ -14,7 +14,11 @@ source $SCRIPTS_ROOT/main.zsh all
 ## :exclamation: Attension
 
 - Remember to change the proxy port number to you own.
-- You must install zoxide, exa, ripgrep, fnm, npm, jq in you compute.
+- You better install [zoxide](https://github.com/ajeetdsouza/zoxide), exa, ripgrep, fnm, node, jq, gum through below command.
+
+```shell
+brew install zoxide exa ripgrep fnm node jq gum
+```
 
 ## Alias
 
@@ -38,6 +42,9 @@ source $SCRIPTS_ROOT/main.zsh all
 - grep: `rg --color`
 - fdd: `fd -Ht d`
 - fdf: `fd -Ht f`
+- ip: `dig +short myip.opendns.com @resolver1.opendns.com`
+- localip: `ipconfig getifaddr en0`
+- ips: `ifconfig -a \| grep -o inet6? (addr:)?\s?((([0-9]+.){3}[0-9]+)\|[a-fA-F0-9:]+) \| awk {sub(/inet6? (addr:)? ?/, \\); print}`
 
 ### git
 
@@ -55,6 +62,8 @@ source $SCRIPTS_ROOT/main.zsh all
 - gho: `git hash-object`
 - gcat: `git cat-file`
 - gs: `git switch`
+- gsl: `git shortlog`
+- gdf: `git difftool`
 
 ### mac
 
@@ -62,7 +71,6 @@ source $SCRIPTS_ROOT/main.zsh all
 - hidefiles: `defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder`
 - spotlightoff: `sudo mdutil -a -i off`
 - spotlighton: `sudo mdutil -a -i on`
-- o: `open .`
 
 ## Completions
 
@@ -75,17 +83,23 @@ source $SCRIPTS_ROOT/main.zsh all
 ### extras
 
 1. update_node
-2. update_node_global_packages
+2. update_node_global_pkg
 3. global_update
 4. clean_maven
 5. clean_aira2
 6. global_clean
-7. gi
+7. clear_downloads
+8. gi
 
 ### fe
 
 1. install_node_package
-2. eslint_config
+2. setup_eslint_config
+3. setup_unocss
+
+### net
+
+1. get_status_code
 
 ### proxy
 
@@ -103,3 +117,5 @@ source $SCRIPTS_ROOT/main.zsh all
 12. unproxy
 13. reset_brew_mirror
 14. set_brew_mirror
+15. set_v2ray_route
+
