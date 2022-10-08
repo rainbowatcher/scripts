@@ -5,7 +5,7 @@ FONT='\033[0m'
 GREEN="\033[1;32m"
 RED='\033[1;31m'
 YELLOW='\033[1;33m'
-HIGHLIGHT='\033[1;36m'
+BLUE='\033[1;36m'
 
 function info() {
   echo "${GREEN}[INFO]${FONT} $@"
@@ -19,10 +19,35 @@ function error() {
   echo "${RED}[ERROR]${FONT} $@"
 }
 
+# @param $1 color
+# @param $2 content
+function display() {
+  local color=$1
+  echoContent() {
+    case $color in
+    "red")
+      echo "${RED}$2${FONT}"
+      ;;
+    "blue")
+      echo "${BLUE}$2${FONT}"
+      ;;
+    "green")
+      echo "${GREEN}$2${FONT}"
+      ;;
+    "yellow")
+      echo "${YELLOW}$2${FONT}"
+      ;;
+    *)
+      echo "$2"
+      ;;
+    esac
+  }
+}
+
 function step() {
   if [ $STEP_NUM ]; then
     STEP_NUM=$(($STEP_NUM + 1))
-    echo "${HIGHLIGHT}[STEP - $STEP_NUM]${FONT} $@"
+    echo "${BLUE}[STEP - $STEP_NUM]${FONT} $@"
   else
     STEP_NUM=0
     step $@
@@ -31,8 +56,8 @@ function step() {
 
 function step_end() {
   unset STEP_NUM
-  if [ $# -gt 0 ];then
-    echo "${HIGHLIGHT}[STEP - END]${FONT} $@"
+  if [ $# -gt 0 ]; then
+    echo "${BLUE}[STEP - END]${FONT} $@"
   fi
 }
 
@@ -66,7 +91,7 @@ function make_dir() {
   fi
 }
 
-# move file to target 
+# move file to target
 function move_file() {
   local source_file=$1
   local target_folder=$2
@@ -85,17 +110,17 @@ function list_files() {
 
 # Create a new directory and enter it
 function dir() {
-	mkdir -p "$@" && cd "$_";
+  mkdir -p "$@" && cd "$_"
 }
 
 function o() {
-	if [ $# -eq 0 ]; then
-		open .;
-	else
-		open "$@";
-	fi;
+  if [ $# -eq 0 ]; then
+    open .
+  else
+    open "$@"
+  fi
 }
 
-function get_shell(){
+function get_shell() {
   echo $SHELL | awk -F'/' '{print $NF}'
 }
