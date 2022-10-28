@@ -142,3 +142,13 @@ export default defineConfig({
 }
 
 # unplugin-vue-components
+
+function init_tsconfig() {
+  if ! file_exists tsconfig.json; then
+    local default_config='{ "compilerOptions": { "target": "ES2016", "module": "CommonJS", "esModuleInterop": true, "forceConsistentCasingInFileNames": true, "strict": true, "skipLibCheck": true } }'
+    echo {} |
+      jq ". + ${default_config}" >tsconfig.json
+  else
+    warn "tsconfig aleardy exists, please ensure use this command in a new project."
+  fi
+}
