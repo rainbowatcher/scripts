@@ -19,7 +19,7 @@ Write it to your \`~/.zshrc\` to enable those scripts.
 \`\`\`shell
 SCRIPTS_ROOT="/path/to/project/location"
 # if you want to enable proxy
-HTTP_PROXY_ADDR=http://127.0.0.1:8889
+HTTP_PROXY_ADDR=http://127.0.0.1:12345
 source \$SCRIPTS_ROOT/main.zsh all
 \`\`\`
 
