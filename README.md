@@ -7,7 +7,7 @@ Write it to your `~/.zshrc` to enable those scripts.
 ```shell
 SCRIPTS_ROOT="/path/to/project/location"
 # if you want to enable proxy
-HTTP_PROXY_ADDR=http://127.0.0.1:8889
+HTTP_PROXY_ADDR=http://127.0.0.1:12345
 source $SCRIPTS_ROOT/main.zsh all
 ```
 
@@ -24,7 +24,6 @@ brew install zoxide exa ripgrep fnm node jq gum
 
 ### cli
 
-- cd: `z`
 - ..: `cd ..`
 - ...: `cd ../..`
 - ls: `exa`
@@ -64,6 +63,8 @@ brew install zoxide exa ripgrep fnm node jq gum
 - gs: `git switch`
 - gsl: `git shortlog`
 - gdf: `git difftool`
+- gca: `git commit -am`
+- gc: `git commit -m`
 
 ### mac
 
@@ -96,6 +97,7 @@ brew install zoxide exa ripgrep fnm node jq gum
 1. install_node_package
 2. setup_eslint_config
 3. setup_unocss
+4. init_tsconfig
 
 ### net
 
