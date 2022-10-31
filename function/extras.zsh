@@ -63,7 +63,7 @@ function global_update() {
   step "update python packages"
   if cmd_exists python && cmd_exists pip; then
     python -m pip install --upgrade pip
-    pip list -u --format=freeze | grep -v '^\-e' | cut -d = -f 1 | xargs -n1 pip install -U
+    pip list -o | grep -v '^\-e' | awk 'NR > 2 {print $1}' | xargs -n1 pip install -U
   fi
 
   step "update node packages"
