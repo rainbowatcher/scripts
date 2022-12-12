@@ -110,14 +110,14 @@ function reset_pip_mirror() {
   fi
 }
 
-function reset_docker_mirror() {
-  if [ $(cat ~/.docker/daemon.json | jq 'has("registry-mirrors")') = 'true' ]; then
-    cat ~/.docker/daemon.json | jq 'del(."registry-mirrors")' >~/.docker/daemon.json
-    judge "reset docker mirror"
-  else
-    info "docker mirror has already reset"
-  fi
-}
+# function reset_docker_mirror() {
+#   if [ $(cat $HOME/.docker/daemon.json | jq 'has("registry-mirrors")') = 'true' ]; then
+#     cat ~/.docker/daemon.json | jq 'del(."registry-mirrors")' >~/.docker/daemon.json
+#     judge "reset docker mirror"
+#   else
+#     info "docker mirror has already reset"
+#   fi
+# }
 
 function set_docker_mirror() {
   if ! test $DOCKER_MIRROR; then
@@ -147,7 +147,7 @@ function proxy() {
 
   reset_pip_mirror
 
-  reset_docker_mirror
+  # reset_docker_mirror
 }
 
 function unproxy() {
@@ -161,7 +161,7 @@ function unproxy() {
 
   set_pip_mirror
 
-  set_docker_mirror
+  # set_docker_mirror
 }
 
 function reset_brew_mirror() {
