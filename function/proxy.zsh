@@ -125,7 +125,7 @@ function set_docker_mirror() {
   fi
 
   echo "current only support manualy set mirror"
-  echo '"registry-mirrors": ["https://28qb0tz2.mirror.aliyuncs.com"'
+  echo '"registry-mirrors": ["https://28qb0tz2.mirror.aliyuncs.com"]'
 
   # local docker_daemon="$HOME/.docker/daemon.json"
   # if [ $(cat $docker_daemon | jq 'has("registry-mirrors")') = 'false' ]; then
