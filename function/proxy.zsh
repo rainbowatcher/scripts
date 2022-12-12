@@ -1,129 +1,167 @@
 #!/usr/bin/env bash
 
 function set_npm_proxy() {
-  echo "proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
-  echo "https-proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
-}
-
-function unset_npm_proxy() {
-  sed -ie '/^proxy/d' "$HOME/.npmrc"
-  sed -ie '/^https-proxy/d' "$HOME/.npmrc"
-  judge "unset npm proxy"
-}
-
-function set_npm_mirror() {
-  sed -ie 's$home=.*$home=https://npmmirror.com$g' $HOME/.npmrc
-  sed -ie 's$registry=.*$registry=https://registry.npmmirror.com/$g' $HOME/.npmrc
-  judge "set npm mirror"
-}
-
-function reset_npm_mirror() {
-  sed -ie 's$home=.*npmmirror.com$home=https://www.npmjs.com$g' "$HOME/.npmrc"
-  sed -ie 's$registry=.*npmmirror.com$registry=https://registry.npmjs.org$g' "$HOME/.npmrc"
-  judge "reset npm mirror"
-}
-
-function set_cli_proxy() {
-  export http_proxy=$HTTP_PROXY_ADDR
-  export https_proxy=$HTTP_PROXY_ADDR
-  judge "set cli proxy"
-}
-
-function unset_cli_proxy() {
-  unset http_proxy
-  unset https_proxy
-  judge "unset cli proxy"
-}
-
-function set_git_proxy() {
-  git config --global http.proxy $HTTP_PROXY_ADDR
-  git config --global https.proxy $HTTP_PROXY_ADDR
-  judge "set git proxy"
-}
-
-function unset_git_proxy() {
-  git config --global --unset http.proxy
-  git config --global --unset https.proxy
-  judge "unset git proxy"
-}
-
-function set_pip_mirror() {
-  echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >>~/.config/pip/pip.conf
-  judge "set pip mirror"
-}
-
-function reset_pip_mirror() {
-  sed -ie '/^index-url/d' ~/.config/pip/pip.conf
-  judge "reset pip mirror"
-}
-
-function proxy() {
-  if [[ $(export | grep -c 'http[s]*?_proxy') -lt 2 ]]; then
-    set_cli_proxy
-  else
-    info "cli proxy has already set"
-  fi
-
-  if [ ! $(git config --get http.proxy) ]; then
-    set_git_proxy
-  else
-    info "git proxy has already set"
-  fi
-
   local npm_proxy npm_mirror
   npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
   npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
   if [[ $npm_proxy == '' ]]; then
-    set_npm_proxy
+    echo "proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
+    echo "https-proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
+    judge "set npm proxy to \"$HTTP_PROXY_ADDR\""
   else
     info "npm proxy has already set"
   fi
+}
 
+function unset_npm_proxy() {
+  local npm_proxy npm_mirror
+  npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
+  npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
+  if [[ $npm_proxy =~ 'http' ]]; then
+    sed -ie '/^proxy/d' "$HOME/.npmrc"
+    sed -ie '/^https-proxy/d' "$HOME/.npmrc"
+    judge "unset npm proxy"
+  else
+    info "npm proxy has already unset"
+  fi
+}
+
+function set_npm_mirror() {
+  local npm_proxy npm_mirror
+  npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
+  npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
+  if [[ $npm_mirror =~ 'npmjs.org' ]]; then
+    sed -ie 's$home=.*$home=https://npmmirror.com$g' $HOME/.npmrc
+    sed -ie 's$registry=.*$registry=https://registry.npmmirror.com/$g' $HOME/.npmrc
+    judge "set npm mirror to \"https://registry.npmmirror.com/\""
+  else
+    info "taobao mirror has already use"
+  fi
+}
+
+function reset_npm_mirror() {
+  local npm_proxy npm_mirror
+  npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
+  npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
   if [[ $npm_mirror =~ 'npmmirror' ]]; then
-    reset_npm_mirror
+    sed -ie 's$home=.*npmmirror.com$home=https://www.npmjs.com$g' "$HOME/.npmrc"
+    sed -ie 's$registry=.*npmmirror.com$registry=https://registry.npmjs.org$g' "$HOME/.npmrc"
+    judge "reset npm mirror to \"https://registry.npmjs.org\""
   else
     info "npm mirror has already reset"
   fi
+}
 
+function set_cli_proxy() {
+  if [[ $(export | grep -c 'http[s]*?_proxy') -lt 2 ]]; then
+    export http_proxy=$HTTP_PROXY_ADDR
+    export https_proxy=$HTTP_PROXY_ADDR
+    judge "set cli proxy to \"$HTTP_PROXY_ADDR\""
+  else
+    info "cli proxy has already set"
+  fi
+}
+
+function unset_cli_proxy() {
+  if [[ $(export | grep -c 'http[s]*?_proxy') -ne 0 ]]; then
+    unset http_proxy
+    unset https_proxy
+    judge "unset cli proxy"
+  else
+    info "cli proxy has already unset"
+  fi
+}
+
+function set_git_proxy() {
+  if [ ! $(git config --get http.proxy) ]; then
+    git config --global http.proxy $HTTP_PROXY_ADDR
+    git config --global https.proxy $HTTP_PROXY_ADDR
+    judge "set git proxy to \"$HTTP_PROXY_ADDR\""
+  else
+    info "git proxy has already set"
+  fi
+}
+
+function unset_git_proxy() {
+  if [ $(git config --get http.proxy) ]; then
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+    judge "unset git proxy"
+  else
+    info "git proxy has already unset"
+  fi
+}
+
+function set_pip_mirror() {
   if cat ~/.config/pip/pip.conf | grep tsinghua >/dev/null 2>&1; then
-    reset_pip_mirror
+    info "pip mirror has already set"
+  else
+    echo "index-url = https://pypi.tuna.tsinghua.edu.cn/simple" >>~/.config/pip/pip.conf
+    judge "set pip mirror to \"https://pypi.tuna.tsinghua.edu.cn/simple\""
+  fi
+}
+
+function reset_pip_mirror() {
+  if cat ~/.config/pip/pip.conf | grep tsinghua >/dev/null 2>&1; then
+    sed -ie '/^index-url/d' ~/.config/pip/pip.conf
+    judge "reset pip mirror"
   else
     info "pip mirror has already reset"
   fi
 }
 
+function reset_docker_mirror() {
+  if [ $(cat ~/.docker/daemon.json | jq 'has("registry-mirrors")') = 'true' ]; then
+    cat ~/.docker/daemon.json | jq 'del(."registry-mirrors")' >~/.docker/daemon.json
+    judge "reset docker mirror"
+  else
+    info "docker mirror has already reset"
+  fi
+}
+
+function set_docker_mirror() {
+  if ! test $DOCKER_MIRROR; then
+    return 1
+  fi
+
+  echo "current only support manualy set mirror"
+  echo '"registry-mirrors": ["https://28qb0tz2.mirror.aliyuncs.com"'
+
+  # local docker_daemon="$HOME/.docker/daemon.json"
+  # if [ $(cat $docker_daemon | jq 'has("registry-mirrors")') = 'false' ]; then
+  #   cat $docker_daemon | jq '. + { "registry-mirrors": ["https://28qb0tz2.mirror.aliyuncs.com"] }' >$docker_daemon
+  #   judge "set docker mirror to \"https://28qb0tz2.mirror.aliyuncs.com\""
+  # else
+  #   info "docker mirror has already set"
+  # fi
+}
+
+function proxy() {
+  set_cli_proxy
+
+  set_git_proxy
+
+  set_npm_proxy
+
+  reset_npm_mirror
+
+  reset_pip_mirror
+
+  reset_docker_mirror
+}
+
 function unproxy() {
-  if [[ $(export | grep -c 'http[s]*?_proxy') -ne 0 ]]; then
-    unset_cli_proxy
-  else
-    info "cli proxy has already unset"
-  fi
-  if [ $(git config --get http.proxy) ]; then
-    unset_git_proxy
-  else
-    info "git proxy has already unset"
-  fi
+  unset_cli_proxy
 
-  local npm_proxy npm_mirror
-  npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
-  npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
-  if [[ $npm_proxy =~ 'http' ]]; then
-    unset_npm_proxy
-  else
-    info "npm proxy has already unset"
-  fi
+  unset_git_proxy
 
-  if [[ $npm_mirror =~ 'npmjs.org' ]]; then
-    set_npm_mirror
-  else
-    info "taobao mirror has already use"
-  fi
+  unset_npm_proxy
 
-  if cat ~/.config/pip/pip.conf | grep tsinghua >/dev/null 2>&1; then
-    info "pip mirror has already set"
-  else
-    set_pip_mirror
-  fi
+  set_npm_mirror
+
+  set_pip_mirror
+
+  set_docker_mirror
 }
 
 function reset_brew_mirror() {
@@ -167,8 +205,10 @@ function set_v2ray_route() {
   step "backup dat files"
   geoip_file_path="$route_path/geoip.dat"
   geosite_file_path="$route_path/geosite.dat"
-  [ -f "$geoip_file_path.bak" ] && rm -f "$geoip_file_path.bak"; echo "removed $geoip_file_path.bak"
-  [ -f "$geosite_file_path.bak" ] && rm -f "$geosite_file_path.bak"; echo "removed $geosite_file_path.bak"
+  [ -f "$geoip_file_path.bak" ] && rm -f "$geoip_file_path.bak"
+  echo "removed $geoip_file_path.bak"
+  [ -f "$geosite_file_path.bak" ] && rm -f "$geosite_file_path.bak"
+  echo "removed $geosite_file_path.bak"
   [ -f "$geoip_file_path" ] && mv -v "$geoip_file_path" "$geoip_file_path.bak"
   [ -f "$geosite_file_path" ] && mv -v "$geosite_file_path" "$geosite_file_path.bak"
 
@@ -176,14 +216,14 @@ function set_v2ray_route() {
   remote_ip_file="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
   remote_site_file="https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
   status_code=$(get_status_code "$remote_ip_file")
-  if [ $status_code -ne 200 ];then
+  if [ $status_code -ne 200 ]; then
     remote_ip_file="https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geoip.dat"
     remote_site_file="https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/geosite.dat"
   fi
   gum spin --title="downloading geoip.dat" --show-output -- \
-  curl -sSL "$remote_ip_file" -o "$geoip_file_path"
+    curl -sSL "$remote_ip_file" -o "$geoip_file_path"
   gum spin --title="downloading geosite.dat" --show-output -- \
-  curl -sSL "$remote_site_file" -o "$geosite_file_path"
+    curl -sSL "$remote_site_file" -o "$geosite_file_path"
 
   step "set recommended route config"
   echo "=== IP Direct ==="
