@@ -235,7 +235,6 @@ function set_v2ray_route() {
   echo "geoip:private"
   echo ""
   echo "=== Domain Direct ==="
-  echo "domain:juneyaoair.com"
   echo "geosite:apple-cn"
   echo "geosite:cn"
   echo ""
