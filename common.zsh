@@ -42,6 +42,7 @@ function display() {
       ;;
     esac
   }
+  echoContent $color $2
 }
 
 function step() {
