@@ -47,6 +47,17 @@ function update_node_global_pkg() {
   cmd_exists pnpm && pnpm update -g
 }
 
+function update_rust() {
+  rustup && rustup update
+}
+
+function update_python() {
+  if cmd_exists python && cmd_exists pip; then
+    python -m pip install --upgrade pip
+    pip list -o | grep -v '^\-e' | awk 'NR > 2 {print $1}' | xargs -n1 pip install -U
+  fi
+}
+
 function global_update() {
   step "set proxy"
   cmd_exists proxy && proxy
@@ -58,19 +69,19 @@ function global_update() {
   update_node
 
   step "update rust packages"
-  cmd_exists rustup && rustup update
+  update_rust
 
   step "update python packages"
-  if cmd_exists python && cmd_exists pip; then
-    python -m pip install --upgrade pip
-    pip list -o | grep -v '^\-e' | awk 'NR > 2 {print $1}' | xargs -n1 pip install -U
-  fi
+  update_python
 
   step "update node packages"
   update_node_global_pkg
 
   step "update sheldon packages"
   cmd_exists sheldon && sheldon lock --update
+
+  step "update sdkman"
+  cmd_exists sdk && sdk selfupdate
 
   step_end
 }
@@ -126,9 +137,10 @@ function clear_downloads() {
     local suffixes=$1
     local target_dir=$2
     local current_shell=$(get_shell)
-    if [[ "$current_shell" = "zsh" ]];then
+    # due to define array is diffrent in zsh and bash
+    if [[ "$current_shell" = "zsh" ]]; then
       local suffixes_arr=(${=suffixes})
-    elif [[ "$current_shell" == "bash" ]];then
+    elif [[ "$current_shell" = "bash" ]]; then
       local suffixes_arr=($suffixes)
     fi
     for suffix in ${suffixes_arr[@]}; do
