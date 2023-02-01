@@ -65,6 +65,7 @@ brew install zoxide exa ripgrep fnm node jq gum
 - gdf: `git difftool`
 - gca: `git commit -am`
 - gc: `git commit -m`
+- gcam: `git commit --amend --no-edit`
 
 ### mac
 
@@ -85,12 +86,14 @@ brew install zoxide exa ripgrep fnm node jq gum
 
 1. update_node
 2. update_node_global_pkg
-3. global_update
-4. clean_maven
-5. clean_aira2
-6. global_clean
-7. clear_downloads
-8. gi
+3. update_rust
+4. update_python
+5. global_update
+6. clean_maven
+7. clean_aira2
+8. global_clean
+9. clear_downloads
+10. gi
 
 ### fe
 
@@ -115,9 +118,10 @@ brew install zoxide exa ripgrep fnm node jq gum
 8. unset_git_proxy
 9. set_pip_mirror
 10. reset_pip_mirror
-11. proxy
-12. unproxy
-13. reset_brew_mirror
-14. set_brew_mirror
-15. set_v2ray_route
+11. set_docker_mirror
+12. proxy
+13. unproxy
+14. reset_brew_mirror
+15. set_brew_mirror
+16. set_v2ray_route
 
