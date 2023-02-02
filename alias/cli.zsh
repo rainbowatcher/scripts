@@ -24,6 +24,7 @@ alias -s zip="unzip -l"
 alias -s rar="unrar l"
 alias -s tar="tar -tf"
 alias -s tar.gz="tar -tf"
+alias -s gz="gunzip -l"
 
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
