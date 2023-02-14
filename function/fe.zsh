@@ -27,7 +27,7 @@ function setup_eslint_config() {
   if [ "$(cat package.json | jq ".devDependencies | has(\"$package_name\") and has(\"eslint\")")" = 'true' ]; then
     info "dependencies has already installed"
   else
-    install_node_package -D "$package_name" eslint
+    install_node_package -D "$package_name" eslint --prefer-offline
   fi
 
   step "config .eslintrc file"
