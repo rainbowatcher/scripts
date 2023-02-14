@@ -145,7 +145,7 @@ export default defineConfig({
 
 function init_tsconfig() {
   if ! file_exists tsconfig.json; then
-    local default_config='{ "compilerOptions": { "target": "ES2016", "module": "CommonJS", "esModuleInterop": true, "forceConsistentCasingInFileNames": true, "strict": true, "skipLibCheck": true } }'
+    local default_config='{ "compilerOptions": { "target": "es2018", "module": "esnext", "lib": ["esnext"], "moduleResolution": "node", "esModuleInterop": true, "strict": true, "strictNullChecks": true, "resolveJsonModule": true, "skipLibCheck": true, "skipDefaultLibCheck": true } }'
     echo {} |
       jq ". + ${default_config}" >tsconfig.json
   else
