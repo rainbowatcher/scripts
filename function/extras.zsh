@@ -1,11 +1,10 @@
 #!/usr/bin/env zsh
 
-# update your node version
+# update your node version using node version manager
 function update_node() {
   if cmd_exists nvm; then
-    local latest_version current_version
-    latest_version=$(nvm ls-remote --lts 16 | tail -1 | grep -o "v(\d{1,2}\.){2}\d{1,2}")
-    current_version=$(nvm current)
+    local latest_version=$(nvm ls-remote --lts 16 | tail -1 | grep -o "v(\d{1,2}\.){2}\d{1,2}")
+    local current_version=$(nvm current)
     if [[ $latest_version == $current_version ]]; then
       info "latest node version $latest_version is installed"
     else
@@ -16,20 +15,19 @@ function update_node() {
       # nvm uninstall $current_version
     fi
   elif cmd_exists fnm; then
-    local latest_version current_version
-    latest_version=$(fnm ls-remote | grep -o ".*\)$" | awk '{print $1}' | tail -1)
-    current_version=$(fnm current)
+    local latest_version=$(fnm ls-remote | grep -o ".*\)$" | awk '{print $1}' | tail -1)
+    local current_version=$(fnm current)
     if [[ $latest_version == $current_version ]]; then
       info "latest node version $latest_version is installed"
     else
       fnm install --lts
       fnm default $latest_version
-      # Due to i'm in use pnpm that installed by homebrew
-      corepack disable pnpm
+      corepack enable
     fi
   fi
 }
 
+# update node global packages
 function update_node_global_pkg() {
   info "start update npm global packages"
   if cmd_exists npm && cmd_exists ncu; then
@@ -85,6 +83,8 @@ function global_update() {
 
   step_end
 }
+
+# ------------- Clean -------------
 
 function clean_maven() {
   if cmd_exists fd; then
