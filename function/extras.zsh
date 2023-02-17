@@ -104,6 +104,14 @@ function clean_aira2() {
   fi
 }
 
+function clean_ds_store() {
+  if cmd_exists fd; then
+    fd -IH ".DS_Store" . -x echo delete {} \; -x rm {} \;
+  else
+    find . -type f -name ".DS_Store" -exec echo {} \; -exec rm -r {} \;
+  fi
+}
+
 function global_clean() {
   step "clean brew"
   brew cleanup
@@ -196,8 +204,6 @@ function clear_downloads() {
   step "handle data files"
   local data_suffixes=".csv .json .xml .txt .dat"
   move_by_suffix "$data_suffixes" "$downloads/data"
-
-  # echo "剩下的文件移动到others："
 
   step_end 'clear up Downloads'
 }
