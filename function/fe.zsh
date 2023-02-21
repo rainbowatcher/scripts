@@ -80,67 +80,6 @@ function setup_eslint_config() {
   step_end
 }
 
-function setup_unocss() {
-  echo "We will start to setup unocss for your project."
-  echo "more info please refer https://github.com/unocss/unocss"
-
-  step "check package.json exists"
-  # if ! file_exists package.json; then
-  #   error "please init project first"
-  #   return 1
-  # fi
-
-  step "choose the presets you want use"
-  local preset_list=$(gum choose --no-limit \
-    "@unocss/preset-uno         - The default preset (right now it's equivalent to @unocss/preset-wind)." \
-    "@unocss/preset-mini        - The minimal but essential rules and variants." \
-    "@unocss/preset-wind        - Tailwind / Windi CSS compact preset." \
-    "@unocss/preset-attributify - Provides Attributify Mode to other presets and rules." \
-    "@unocss/preset-icons       - Use any icon as a class utility." \
-    "@unocss/preset-web-fonts   - Web fonts at ease." \
-    "@unocss/preset-typography  - The typography preset." \
-    "@unocss/preset-tagify      - Tagify Mode for UnoCSS." \
-    "@unocss/preset-rem-to-px   - Coverts rem to px for utils.")
-
-  source $SCRIPTS_ROOT/util/case.zsh
-  local preset_items=$(for item in ${preset_list[@]}; do
-    name=$(echo $item | awk '{print $1}' | awk -F/ '{print $2}')
-    export_name=$(to_pascal_case $name)
-    echo $export_name
-  done)
-  local import_items=$(echo $preset_items | awk -v d=", " '{s=(NR==1?s:s d)$0} END{print s}')
-  local presets=$(echo $preset_items | awk -v d=",\n        " '{s=(NR==1?s:s d)$0"()"} END{print s}')
-  local preset_package_names=$(echo "${preset_list[*]}" | awk -v d=" " '{s=(NR==1?s:s d)$1} END{print s}')
-  # gum spin --spinner dot --title "installing packages..." -- install_node_package "unocss ${preset_names[*]}"
-
-  step "choose which config file you prefer to use."
-  local config_file_name=$(gum choose "vite.config.ts" "vite.config.js" "unocss.config.ts" "unocss.config.js")
-  local vite_config="import { defineConfig, $import_items } from 'unocss';
-
-export default defineConfig({
-    presets: [
-        $presets
-    ]
-});"
-  local uno_config="uno_config"
-  case "${config_file_name}" in
-  "vite.config.ts" | "vite.config.js")
-    gum format --type=code $vite_config
-    ;;
-  "unocss.config.ts" | "unocss.config.js")
-    gum format --type=code $uno_config
-    ;;
-  *)
-    echo "default (none of above)"
-    ;;
-  esac
-
-  # if file_exists $config_file_name;then
-
-  # fi
-  step_end
-}
-
 # unplugin-vue-components
 
 function init_tsconfig() {
