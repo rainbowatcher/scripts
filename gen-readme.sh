@@ -90,7 +90,7 @@ for item in "${files[@]}"; do
     num=0;
     print "### " item "\n"
   }
-  /function/ {
+  /^function/ {
     num+=1;
     sub("function ", "", $1)
     print num ". " $1

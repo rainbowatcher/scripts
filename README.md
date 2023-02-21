@@ -66,6 +66,8 @@ brew install zoxide exa ripgrep fnm node jq gum
 - gca: `git commit -am`
 - gc: `git commit -m`
 - gcam: `git commit --amend --no-edit`
+- gcl1: `git clone --depth 1`
+- gcl: `git clone`
 
 ### mac
 
@@ -91,16 +93,16 @@ brew install zoxide exa ripgrep fnm node jq gum
 5. global_update
 6. clean_maven
 7. clean_aira2
-8. global_clean
-9. clear_downloads
-10. gi
+8. clean_ds_store
+9. global_clean
+10. clear_downloads
+11. gi
 
 ### fe
 
 1. install_node_package
 2. setup_eslint_config
-3. setup_unocss
-4. init_tsconfig
+3. init_tsconfig
 
 ### net
 
