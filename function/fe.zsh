@@ -84,10 +84,11 @@ function setup_eslint_config() {
 
 function init_tsconfig() {
   if ! file_exists tsconfig.json; then
-    local default_config='{ "compilerOptions": { "target": "es2018", "module": "esnext", "lib": ["esnext"], "moduleResolution": "node", "esModuleInterop": true, "strict": true, "strictNullChecks": true, "resolveJsonModule": true, "skipLibCheck": true, "skipDefaultLibCheck": true } }'
+    local default_config='{ "compilerOptions": { "forceConsistentCasingInFileNames": true, "target": "es2018", "module": "esnext", "lib": [ "ESNext", "DOM" ], "moduleResolution": "node", "esModuleInterop": true, "strict": true, "strictNullChecks": true, "resolveJsonModule": true, "skipLibCheck": true, "skipDefaultLibCheck": true } }'
     echo {} |
       jq ". + ${default_config}" >tsconfig.json
   else
     warn "tsconfig aleardy exists, please ensure use this command in a new project."
   fi
 }
+
