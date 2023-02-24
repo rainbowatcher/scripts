@@ -46,7 +46,7 @@ function update_node_global_pkg() {
 }
 
 function update_rust() {
-  rustup && rustup update
+  cmd_exists rustup && rustup update
 }
 
 function update_python() {
