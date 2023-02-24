@@ -125,3 +125,9 @@ function o() {
 function get_shell() {
   echo $SHELL | awk -F'/' '{print $NF}'
 }
+
+# ref: https://github.com/paulmillr/dotfiles/blob/master/terminal/startup.sh
+# Checks if a name is a command, function, or alias.
+function is_callable {
+  (( $+commands[$1] )) || (( $+functions[$1] )) || (( $+aliases[$1] ))
+}
