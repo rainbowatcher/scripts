@@ -136,6 +136,31 @@ function set_docker_mirror() {
   # fi
 }
 
+function set_rustup_mirror() {
+  export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+  export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+}
+
+function unset_rustup_mirror() {
+  unset RUSTUP_UPDATE_ROOT RUSTUP_DIST_SERVER
+}
+
+function set_cargo_mirror() {
+  if cat ~/.cargo/config.yaml | grep source.mirror; then
+    info "cargo mirror already set"
+  else
+    echo "\n[source.crates-io]\nreplace-with = 'mirror'\n\n[source.mirror]\nregistry = \"sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/\"" >>$HOME/.cargo/config.yaml
+    judge "set cargo mirror to https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
+  fi
+}
+
+function unset_cargo_mirror() {
+  sed -ie '/^$/d' $HOME/.cargo/config.yaml
+  sed -ie '/^\[source/d' $HOME/.cargo/config.yaml
+  sed -ie '/mirror/d' $HOME/.cargo/config.yaml
+  judge "unset cargo mirror"
+}
+
 function proxy() {
   set_cli_proxy
 
