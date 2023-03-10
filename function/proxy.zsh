@@ -172,6 +172,9 @@ function proxy() {
 
   reset_pip_mirror
 
+  unset_rustup_mirror
+
+  unset_cargo_mirror
   # reset_docker_mirror
 }
 
@@ -186,6 +189,9 @@ function unproxy() {
 
   set_pip_mirror
 
+  set_rustup_mirror
+
+  set_cargo_mirror
   # set_docker_mirror
 }
 
