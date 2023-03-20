@@ -26,15 +26,13 @@ brew install zoxide exa ripgrep fnm node jq gum
 
 - ..: `cd ..`
 - ...: `cd ../..`
-- ls: `exa`
+- ls: `exa --icons`
 - lsa: `ls -a`
 - lt: `ls -lFh --time-style long-iso -s time`
-- ll: `ls -laFh --time-style long-iso`
+- ll: `ls -lFh --time-style long-iso`
 - lg: `ls -lbGaFh --time-style long-iso`
 - lx: `ls -lbhHigUmuSa@ --time-style`
 - zshrc: `code ~/.zshrc`
-- dud: `du -hd1 \| sort --human-numeric-sort`
-- duf: `du -hs * \| sort --human-numeric-sort`
 - rm: `rm -i`
 - cp: `cp -i`
 - mv: `mv -i`
@@ -103,6 +101,8 @@ brew install zoxide exa ripgrep fnm node jq gum
 1. install_node_package
 2. setup_eslint_config
 3. init_tsconfig
+4. install_profile_default_exts
+5. setup_vscode_default_settings
 
 ### net
 
@@ -121,9 +121,25 @@ brew install zoxide exa ripgrep fnm node jq gum
 9. set_pip_mirror
 10. reset_pip_mirror
 11. set_docker_mirror
-12. proxy
-13. unproxy
-14. reset_brew_mirror
-15. set_brew_mirror
-16. set_v2ray_route
+12. set_rustup_mirror
+13. unset_rustup_mirror
+14. set_cargo_mirror
+15. unset_cargo_mirror
+16. proxy
+17. unproxy
+18. reset_brew_mirror
+19. set_brew_mirror
+20. set_v2ray_route
+
+### rc
+
+some config from oh-my-zsh
+
+### sys
+
+1. _calc_ram
+2. ram
+3. dud
+4. dua
+5. dun
 
