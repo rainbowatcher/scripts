@@ -137,28 +137,42 @@ function set_docker_mirror() {
 }
 
 function set_rustup_mirror() {
-  export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
-  export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+  if [[ $(export | grep -c RUSTUP_UPDATE_ROOT) -lt 1 ]]; then
+    export RUSTUP_UPDATE_ROOT=https://mirrors.tuna.tsinghua.edu.cn/rustup/rustup
+    export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup
+    judge "set rustup mirror to \"https://mirrors.tuna.tsinghua.edu.cn/rustup\""
+  else
+    info "rustup mirror has already set"
+  fi
 }
 
-function unset_rustup_mirror() {
-  unset RUSTUP_UPDATE_ROOT RUSTUP_DIST_SERVER
+function reset_rustup_mirror() {
+  if [[ $(export | grep -c RUSTUP_UPDATE_ROOT) -lt 1 ]]; then
+    info "rustup mirror has already unset"
+  else
+    unset RUSTUP_UPDATE_ROOT RUSTUP_DIST_SERVER
+    judge "reset rustup mirror"
+  fi
 }
 
 function set_cargo_mirror() {
-  if cat ~/.cargo/config.yaml | grep source.mirror; then
-    info "cargo mirror already set"
+  if [[ $(cat ~/.cargo/config.yaml | grep -c source.mirror) -eq 1 ]]; then
+    info "cargo mirror has already set"
   else
     echo "\n[source.crates-io]\nreplace-with = 'mirror'\n\n[source.mirror]\nregistry = \"sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/\"" >>$HOME/.cargo/config.yaml
     judge "set cargo mirror to https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
   fi
 }
 
-function unset_cargo_mirror() {
-  sed -ie '/^$/d' $HOME/.cargo/config.yaml
-  sed -ie '/^\[source/d' $HOME/.cargo/config.yaml
-  sed -ie '/mirror/d' $HOME/.cargo/config.yaml
-  judge "unset cargo mirror"
+function reset_cargo_mirror() {
+  if [[ $(cat $HOME/.cargo/config.yaml | grep -c "registry") -eq 1 ]]; then
+    sed -ie '/^$/d' $HOME/.cargo/config.yaml
+    sed -ie '/^\[source/d' $HOME/.cargo/config.yaml
+    sed -ie '/mirror/d' $HOME/.cargo/config.yaml
+    judge "unset cargo mirror"
+  else
+    info "cargo mirror has already set"
+  fi
 }
 
 function proxy() {
@@ -172,9 +186,9 @@ function proxy() {
 
   reset_pip_mirror
 
-  unset_rustup_mirror
+  reset_rustup_mirror
 
-  unset_cargo_mirror
+  reset_cargo_mirror
   # reset_docker_mirror
 }
 
