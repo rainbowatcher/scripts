@@ -3,7 +3,7 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 # alias cat='bat'
-alias ls='exa --icons'
+alias ls='exa --icons --group-directories-first'
 alias lsa='ls -a'
 alias lt='ls -lFh --time-style long-iso -s time'
 alias ll='ls -lFh --time-style long-iso'
