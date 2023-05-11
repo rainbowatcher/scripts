@@ -1,180 +1,212 @@
 [SwitchyOmega Conditions]
-; Require: SwitchyOmega >= 2.3.2
-; Date: 2023/2/24
-; Usage: https://github.com/FelisCatus/SwitchyOmega/wiki/RuleListUsage
+@with result
 
-*.google.com
-*.mutinyhq.io
-*.doubleclick.net
-*.fullstory.com
-*.mutinycdn.com
-*.segment.com
-*.datadoghq-browser-agent.com
-*.googleoptimize.com
-*.googletagmanager.com
-*.clickup.com
-*.debezium.io
-*.rome.tools
-*.githubassets.com
-*.avatars.githubusercontent.com
-*.raw.githubusercontent.com
-*.github.com
-*.polyfill.io
-*.sstatic.net
-*.stripe.com
-*.wappalyzer.com
-*.openai.com
-*.live.com
-*.bingapis.com
-*.msn.com
-*.bing.com
-*.msecnd.net
-*.aspnetcdn.com
-*.fonts.googleapis.com
-*.google-analytics.com
-*.mail.ru
-*.yandex.ru
-*.smsactivate.s3.eu-central-1.amazonaws.com
-*.jivosite.com
-*.cloudflare.com
-*.sms-activate.org
-*.goinsms.xyz
-*.anonymsms.com
-*.cookielaw.org
-*.camo.githubusercontent.com
-*.carbonads.com
-*.sdkman.io
-*.jsdelivr.net
-*.transform.tools
-*.apache.org
-*.quoracdn.net
-*.google.com.hk
-*.quora.com
-*.selectize.dev
-*.codesandbox.io
-*.floating-ui.com
-*.stackoverflow.com
-*.lambdatest.com
-*.davidwalsh.name
-*.dropboxusercontent.com
-*.dropbox.com
-*.vercel.com
-*.man7.org
-*.wangchujiang.com
-*.codepen.io
-*.animista.net
-*.chrome.com
-!*.gitee.io
-*.rust-lang.org
-*.gitlab.com
-*.jekyllthemes.org
-*.mysqltutorial.org
-*.css-tricks.com
-*.bunny.net
-*.previewjs.com
-*.go.dev
-!*.juneyaoair.com
-*.v2ray.com
-*.do.co
-*.kartikn.me
-*.jsfiddle.net
-*.vitejs.dev
-*.qv2ray.net
-*.microsoft.com
-*.tailwindui.com
-*.stackexchange.com
-*.slack.com
-*.astexplorer.net
-*.baeldung.com
-*.katacoda.com
-*.verdantfox.com
-*.likegeeks.com
-*.ruanyifeng.com
-*.jqplay.org
-*.histoire.dev
-*.oracle.com
-*.zealdocs.org
-*.producthunt.com
-*.ray.so
-*.medevel.com
-*.3cols.com
-*.cloudinary.com
-*.visualstudio.com
-*.elastic.co
-*.contentstack.io
-*.notion.so
-*.algolia.com
-*.algorithm-visualizer.org
-*.antfu.me
-*.bitwarden.com
-*.boxy-svg.com
-*.cloudera.com
-*.codeleading.com
-*.crates.io
-*.cypress.io
-*.daisyui.com
-*.deno.land
-*.dev.to
-*.discord.com
-*.docs.rs
-*.docusaurus.io
-*.editorjs.io
-*.egui.rs
-*.evanyou.me
-*.fig.io
-*.firebaseapp.com
-*.flutter.dev
-*.geeksforgeeks.org
-*.github.io
-*.githubusercontent.com
-*.googleusercontent.com
-*.goyfe.com
-*.grammarly.com
-*.gstatic.com
-*.hackernoon.com
-*.headlessui.com
-*.iconify.design
-*.imgix.net
-*.ionicframework.com
-*.jiamaoxiang.top
-*.kennethreitz.org
-*.languagereactor.com
-*.linear.app
-*.linuxhint.com
-*.logrocket.com
-*.medium.com
-*.neovim.io
-*.nerdfonts.com
-*.nodejs.org
-*.npmjs.com
-*.npmsjs.com
-*.openvpn.net
-*.oracletutorial.com
-*.paddle.com
-*.pnpm.io
-*.pqrs.org
-*.pre-commit.com
-*.qlik.com
-*.readthedocs.io
-*.rollupjs.org
-*.rustwiki.org
-*.sheetjs.com
-*.shields.io
-*.simpleicons.org
-*.sonatype.com
-*.spacevim.org
-*.starship.rs
-*.surely.cool
-*.testing-library.com
-*.twitter.com
-*.vercel.app
-*.vercel.link
-*.vscode.dev
-*.vuejs.org
-*.w3.org
-*.wallhaven.cc
-*.warp.dev
-*.wikipedia.org
-*.ycombinator.com
-*.youtube.com
-*.zendesk.com
+*.gpt3demo.com +switch
+*.you.com +switch
+*.solidjs.com +switch
+*.mediamodifier.com +switch
+*.boxy-svg.com +switch
+*.appicons.ai +switch
+*.raw.githubusercontent.com +switch
+*.camo.githubusercontent.com +switch
+*.githubassets.com +switch
+*.avatars.githubusercontent.com +switch
+*.github.com +switch
+*.bing.com +switch
+*.promptboom.com +switch
+*.poe.com +switch
+*.mastergo.com +switch
+*.digitalocean.com +switch
+*.google.com +switch
+*.googlesyndication.com +switch
+*.6sc.co +switch
+*.openx.net +switch
+*.bootstrapcdn.com +switch
+*.amazon-adsystem.com +switch
+*.tiktok.com +switch
+*.codemirror.net +switch
+*.plone.org +switch
+*.google.com.hk +switch
+*.naiveui.com +switch
+*.3dviewer.net +switch
+*.pyansys.com +switch
+*.eslint.org +switch
+*.gitcdn.link +switch
+*.observablehq.com +switch
+*.luma.gl +switch
+*.googletagmanager.com +switch
+*.d1a3f4spazzrp4.cloudfront.net +switch
+*.deck.gl +switch
+*.apache.org +switch
+*.scichart.com +switch
+*.ansys.com +switch
+*.threejs.org +switch
+*.readthedocs.io +switch
+*.zdassets.com +switch
+*.googleusercontent.com +switch
+*.plausible.io +switch
+*.packagephobia.com +switch
+*.shields.io +switch
+*.deno.land +switch
+*.jsdelivr.net +switch
+*.transform.tools +switch
+*.buysellads.net +switch
+*.unpkg.com +switch
+*.npmjs.com +switch
+*.mutinyhq.io +switch
+*.fullstory.com +switch
+*.mutinycdn.com +switch
+*.segment.com +switch
+*.datadoghq-browser-agent.com +switch
+*.googleoptimize.com +switch
+*.clickup.com +switch
+*.debezium.io +switch
+*.rome.tools +switch
+*.polyfill.io +switch
+*.sstatic.net +switch
+*.stripe.com +switch
+*.wappalyzer.com +switch
+*.openai.com +switch
+*.live.com +switch
+*.bingapis.com +switch
+*.msn.com +switch
+*.msecnd.net +switch
+*.aspnetcdn.com +switch
+*.fonts.googleapis.com +switch
+*.google-analytics.com +switch
+*.mail.ru +switch
+*.yandex.ru +switch
+*.smsactivate.s3.eu-central-1.amazonaws.com +switch
+*.jivosite.com +switch
+*.cloudflare.com +switch
+*.sms-activate.org +switch
+*.goinsms.xyz +switch
+*.anonymsms.com +switch
+*.cookielaw.org +switch
+*.carbonads.com +switch
+*.sdkman.io +switch
+*.quoracdn.net +switch
+*.quora.com +switch
+*.selectize.dev +switch
+*.codesandbox.io +switch
+*.floating-ui.com +switch
+*.stackoverflow.com +switch
+*.lambdatest.com +switch
+*.davidwalsh.name +switch
+*.dropboxusercontent.com +switch
+*.dropbox.com +switch
+*.vercel.com +switch
+*.man7.org +switch
+*.wangchujiang.com +switch
+*.codepen.io +switch
+*.animista.net +switch
+*.chrome.com +switch
+*.gitee.io +direct
+*.rust-lang.org +switch
+*.gitlab.com +switch
+*.jekyllthemes.org +switch
+*.mysqltutorial.org +switch
+*.css-tricks.com +switch
+*.bunny.net +switch
+*.previewjs.com +switch
+*.go.dev +switch
+*.juneyaoair.com +direct
+*.v2ray.com +switch
+*.do.co +switch
+*.kartikn.me +switch
+*.jsfiddle.net +switch
+*.vitejs.dev +switch
+*.qv2ray.net +switch
+*.microsoft.com +switch
+*.tailwindui.com +switch
+*.stackexchange.com +switch
+*.slack.com +switch
+*.astexplorer.net +switch
+*.baeldung.com +switch
+*.katacoda.com +switch
+*.verdantfox.com +switch
+*.likegeeks.com +switch
+*.ruanyifeng.com +switch
+*.jqplay.org +switch
+*.histoire.dev +switch
+*.oracle.com +switch
+*.zealdocs.org +switch
+*.producthunt.com +switch
+*.ray.so +switch
+*.medevel.com +switch
+*.3cols.com +switch
+*.cloudinary.com +switch
+*.visualstudio.com +switch
+*.elastic.co +switch
+*.contentstack.io +switch
+*.notion.so +switch
+*.algolia.com +switch
+*.algorithm-visualizer.org +switch
+*.antfu.me +switch
+*.bitwarden.com +switch
+*.cloudera.com +switch
+*.codeleading.com +switch
+*.crates.io +switch
+*.cypress.io +switch
+*.daisyui.com +switch
+*.dev.to +switch
+*.discord.com +switch
+*.docs.rs +switch
+*.docusaurus.io +switch
+*.editorjs.io +switch
+*.egui.rs +switch
+*.evanyou.me +switch
+*.fig.io +switch
+*.firebaseapp.com +switch
+*.flutter.dev +switch
+*.github.io +switch
+*.githubusercontent.com +switch
+*.goyfe.com +switch
+*.grammarly.com +switch
+*.hackernoon.com +switch
+*.headlessui.com +switch
+*.iconify.design +switch
+*.imgix.net +switch
+*.ionicframework.com +switch
+*.jiamaoxiang.top +switch
+*.kennethreitz.org +switch
+*.languagereactor.com +switch
+*.linear.app +switch
+*.linuxhint.com +switch
+*.logrocket.com +switch
+*.medium.com +switch
+*.neovim.io +switch
+*.nerdfonts.com +switch
+*.nodejs.org +switch
+*.npmsjs.com +switch
+*.openvpn.net +switch
+*.oracletutorial.com +switch
+*.paddle.com +switch
+*.pnpm.io +switch
+*.pqrs.org +switch
+*.pre-commit.com +switch
+*.qlik.com +switch
+*.readthedocs.io +switch
+*.rollupjs.org +switch
+*.rustwiki.org +switch
+*.sheetjs.com +switch
+*.simpleicons.org +switch
+*.sonatype.com +switch
+*.spacevim.org +switch
+*.starship.rs +switch
+*.surely.cool +switch
+*.testing-library.com +switch
+*.twitter.com +switch
+*.vercel.app +switch
+*.vercel.link +switch
+*.vscode.dev +switch
+*.vuejs.org +switch
+*.w3.org +switch
+*.wallhaven.cc +switch
+*.warp.dev +switch
+*.wikipedia.org +switch
+*.ycombinator.com +switch
+*.youtube.com +switch
+*.zendesk.com +switch
+
+* +direct
