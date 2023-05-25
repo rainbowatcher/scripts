@@ -32,7 +32,7 @@ function update_node_global_pkg() {
   info "start update npm global packages"
   if cmd_exists npm && cmd_exists ncu; then
     local outdated
-    outdated=$(ncu -ug)
+    outdated=$(ncu -g)
     eval $(echo $outdated | grep "npm -g install")
   elif cmd_exists npm; then
     npm update -g
