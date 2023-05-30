@@ -1,4 +1,5 @@
-# ---==--- History ---==---
+# https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/history.zsh
+
 ## History file configuration
 [ -z "$HISTFILE" ] && HISTFILE="$HOME/.zsh_history"
 [ "$HISTSIZE" -lt 50000 ] && HISTSIZE=50000
