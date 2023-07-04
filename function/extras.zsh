@@ -88,11 +88,13 @@ function global_update() {
 
 function clean_maven() {
   if cmd_exists fd; then
-    fd ".*lastUpdated.*?" ~/.m2/repository -x echo delete {} \; -x rm {} \;
-    fd '.*\$.*' ~/.m2/repository -x echo delete {} \; -x rm -r {} \;
+    fd ".*lastUpdated.*?" ~/.m2/repository -t f -x echo delete {} \; -x rm {} \;
+    fd ".*repositories.*?" ~/.m2/repository -t f -x echo delete {} \; -x rm {} \;
+    fd '.*\$.*' ~/.m2/repository -t d -x echo delete {} \; -x rm -r {} \;
   else
-    find ~/.m2/repository -type d -name "*\${*" -exec echo {} \; -exec rm -r {} \;
     find ~/.m2/repository -type f -name "*lastUpdated*" -exec echo {} \; -exec rm -r {} \;
+    find ~/.m2/repository -type f -name "*repositories*" -exec echo {} \; -exec rm -r {} \;
+    find ~/.m2/repository -type d -name "*\${*" -exec echo {} \; -exec rm -r {} \;
   fi
 }
 
