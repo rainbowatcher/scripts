@@ -155,6 +155,25 @@ function reset_rustup_mirror() {
   fi
 }
 
+function set_cargo_proxy() {
+  if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c proxy) -eq 1 ]]; then
+    info "cargo proxy has already set"
+  else
+    echo "\n[http]\nproxy=\"$HTTP_PROXY_ADDR\"" >>"$HOME/.cargo/config.yaml"
+    judge "set cargo proxy to \"$HTTP_PROXY_ADDR\""
+  fi
+}
+
+function unset_cargo_proxy() {
+  if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c proxy) -eq 1 ]]; then
+    sed -ie '/^proxy/d' "$HOME/.cargo/config.yaml"
+    sed -ie '/^\[http/d' "$HOME/.cargo/config.yaml"
+    judge "unset cargo proxy"
+  else
+    info "cargo proxy has already unset"
+  fi
+}
+
 function set_cargo_mirror() {
   if [[ $(cat ~/.cargo/config.yaml | grep -c source.mirror) -eq 1 ]]; then
     info "cargo mirror has already set"
@@ -165,10 +184,10 @@ function set_cargo_mirror() {
 }
 
 function reset_cargo_mirror() {
-  if [[ $(cat $HOME/.cargo/config.yaml | grep -c "registry") -eq 1 ]]; then
-    sed -ie '/^$/d' $HOME/.cargo/config.yaml
-    sed -ie '/^\[source/d' $HOME/.cargo/config.yaml
-    sed -ie '/mirror/d' $HOME/.cargo/config.yaml
+  if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c "registry") -eq 1 ]]; then
+    sed -ie '/^$/d' "$HOME/.cargo/config.yaml"
+    sed -ie '/^\[source/d' "$HOME/.cargo/config.yaml"
+    sed -ie '/mirror/d' "$HOME/.cargo/config.yaml"
     judge "unset cargo mirror"
   else
     info "cargo mirror has already set"
@@ -182,13 +201,16 @@ function proxy() {
 
   set_npm_proxy
 
+  set_cargo_proxy
+
+  reset_cargo_mirror
+  
   reset_npm_mirror
 
   reset_pip_mirror
 
   reset_rustup_mirror
 
-  reset_cargo_mirror
   # reset_docker_mirror
 }
 
@@ -199,13 +221,16 @@ function unproxy() {
 
   unset_npm_proxy
 
+  unset_cargo_proxy
+
+  set_cargo_mirror
+
   set_npm_mirror
 
   set_pip_mirror
 
   set_rustup_mirror
 
-  set_cargo_mirror
   # set_docker_mirror
 }
 
