@@ -159,8 +159,8 @@ function set_cargo_proxy() {
   if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c proxy) -eq 1 ]]; then
     info "cargo proxy has already set"
   else
-    echo "\n[http]\nproxy=\"$HTTP_PROXY_ADDR\"" >>"$HOME/.cargo/config.yaml"
-    judge "set cargo proxy to \"$HTTP_PROXY_ADDR\""
+    echo "[http]\nproxy=\"${HTTP_PROXY_ADDR:7}\"" >>"$HOME/.cargo/config.yaml"
+    judge "set cargo proxy to \"${HTTP_PROXY_ADDR:7}\""
   fi
 }
 
