@@ -2,7 +2,8 @@
 function _calc_ram() {
   local sum
   sum=0
-  for i in $(ps aux | grep -i "$1" | grep -v "grep -i $1" | awk '{print $6}'); do
+  local grep_cmd=`alias grep | sed "s/.*'\(.*\)'.*/\1/"`
+  for i in $(ps aux | grep -i "$1" | grep -v "$grep_cmd -i $1" | awk '{print $6}'); do
     sum=$(($i + $sum))
   done
   sum=$(echo "scale=2; $sum / 1024.0" | bc)
