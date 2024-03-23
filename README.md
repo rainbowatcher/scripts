@@ -14,10 +14,10 @@ source $SCRIPTS_ROOT/main.zsh all
 ## :exclamation: Attension
 
 - Remember to change the proxy port number to you own.
-- You better install [zoxide](https://github.com/ajeetdsouza/zoxide), exa, ripgrep, fnm, node, jq, gum through below command.
+- You better install [zoxide](https://github.com/ajeetdsouza/zoxide), eza, ripgrep, fnm, node, jq, gum through below command.
 
 ```shell
-brew install zoxide exa ripgrep fnm node jq gum
+brew install zoxide eza ripgrep fnm node jq gum
 ```
 
 ## Alias
@@ -26,46 +26,45 @@ brew install zoxide exa ripgrep fnm node jq gum
 
 - ..: `cd ..`
 - ...: `cd ../..`
-- ls: `exa --icons`
+- ls: `eza --icons --group-directories-first`
 - lsa: `ls -a`
-- lt: `ls -lFh --time-style long-iso -s time`
-- ll: `ls -lFh --time-style long-iso`
-- lg: `ls -lbGaFh --time-style long-iso`
+- lt: `ls -lhF --time-style long-iso -s time`
+- ll: `ls -lhF --time-style long-iso`
+- lg: `ls -lbGahF --time-style long-iso`
 - lx: `ls -lbhHigUmuSa@ --time-style`
 - zshrc: `code ~/.zshrc`
-- rm: `rm -i`
+- rm: `trash`
 - cp: `cp -i`
 - mv: `mv -i`
-- grep: `rg --color`
 - fdd: `fd -Ht d`
 - fdf: `fd -Ht f`
-- ip: `dig +short myip.opendns.com @resolver1.opendns.com`
-- localip: `ipconfig getifaddr en0`
+- public_ip: `dig +short myip.opendns.com @resolver1.opendns.com`
+- local_ip: `ipconfig getifaddr en0`
 - ips: `ifconfig -a \| grep -o inet6? (addr:)?\s?((([0-9]+.){3}[0-9]+)\|[a-fA-F0-9:]+) \| awk {sub(/inet6? (addr:)? ?/, \\); print}`
 
 ### git
 
-- gst: `git status`
+- gaa: `git add .`
+- gba: `git branch -a`
+- gbd: `git branch --delete`
+- gbrn: `git branch -m`
+- gc: `git commit -m`
+- gca: `git commit -am`
+- gcam: `git commit --amend --no-edit`
+- gcat: `git cat-file`
+- gcf: `git config -l`
+- gcl1: `git clone --depth 1`
+- gcl: `git clone`
+- gcln: `git clean -xdf`
+- gdf: `git difftool`
+- gho: `git hash-object`
 - gl: `git log --oneline --cherry`
 - gll: `git log --graph --cherry --pretty`
 - gp: `git push`
 - gpl: `git pull`
-- gcf: `git config -l`
-- gaa: `git add .`
-- gcf: `git config --list`
-- gba: `git branch -a`
-- gbd: `git branch --delete`
-- gbrn: `git branch -m`
-- gho: `git hash-object`
-- gcat: `git cat-file`
 - gs: `git switch`
 - gsl: `git shortlog`
-- gdf: `git difftool`
-- gca: `git commit -am`
-- gc: `git commit -m`
-- gcam: `git commit --amend --no-edit`
-- gcl1: `git clone --depth 1`
-- gcl: `git clone`
+- gst: `git status -s`
 
 ### mac
 
@@ -104,6 +103,9 @@ brew install zoxide exa ripgrep fnm node jq gum
 4. install_profile_default_exts
 5. setup_vscode_default_settings
 
+### fzf
+
+
 ### net
 
 1. get_status_code
@@ -122,18 +124,19 @@ brew install zoxide exa ripgrep fnm node jq gum
 10. reset_pip_mirror
 11. set_docker_mirror
 12. set_rustup_mirror
-13. unset_rustup_mirror
-14. set_cargo_mirror
-15. unset_cargo_mirror
-16. proxy
-17. unproxy
-18. reset_brew_mirror
-19. set_brew_mirror
-20. set_v2ray_route
+13. reset_rustup_mirror
+14. set_cargo_proxy
+15. unset_cargo_proxy
+16. set_cargo_mirror
+17. reset_cargo_mirror
+18. proxy
+19. unproxy
+20. reset_brew_mirror
+21. set_brew_mirror
+22. set_v2ray_route
 
 ### rc
 
-some config from oh-my-zsh
 
 ### sys
 
