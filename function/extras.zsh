@@ -15,14 +15,19 @@ function update_node() {
       # nvm uninstall $current_version
     fi
   elif cmd_exists fnm; then
-    local latest_version=$(fnm ls-remote | grep -o ".*\)$" | awk '{print $1}' | tail -1)
+    local remote_latest_version=$(fnm ls-remote | grep -o ".*)$" | awk '{print $1}' | tail -1)
     local current_version=$(fnm current)
-    if [[ $latest_version == $current_version ]]; then
-      info "latest node version $latest_version is installed"
+    local local_latest_version=$(fnm ls | awk '{print $2}' | grep -e 'v.*' | tail -1)
+    if [[ $remote_latest_version == $local_latest_version ]]; then
+      info "latest node version [$remote_latest_version] is installed"
     else
-      fnm install --lts
-      fnm default $latest_version
-      corepack enable
+      info "local latest node version is $local_latest_version"
+      if gum confirm "install latest node version $remote_latest_version ?"; then
+        fnm install --lts
+        fnm default $local_latest_version
+      else
+        info "skip update node version"
+      fi
     fi
   fi
 }
@@ -50,9 +55,13 @@ function update_rust() {
 }
 
 function update_python() {
-  if cmd_exists python && cmd_exists pip; then
-    python -m pip install --upgrade pip
-    pip list -o | grep -v '^\-e' | awk 'NR > 2 {print $1}' | xargs -n1 pip install -U
+  # python is recommended to install package by using pipx
+  # if cmd_exists python && cmd_exists pip; then
+  #   python -m pip install --upgrade pip
+  #   pip list -o | grep -v '^\-e' | awk 'NR > 2 {print $1}' | xargs -n1 pip install -U
+  # fi
+  if cmd_exists pipx; then
+    pipx upgrade-all
   fi
 }
 
@@ -186,7 +195,7 @@ function clear_downloads() {
   move_by_suffix "$pkg_suffixes" "$downloads/package"
 
   step "handle compress file"
-  local compress_suffixes=".zip .gz .gz2 .rar .7z"
+  local compress_suffixes=".zip .gz .gz2 .rar .7z .zip"
   move_by_suffix "$compress_suffixes" "$downloads/compress"
 
   step "handle jars"
@@ -197,7 +206,7 @@ function clear_downloads() {
   move_by_suffix "$mirror_suffixes" "$downloads/mirrors"
 
   step "handle scripts"
-  local script_suffixes=".sh .bat .zsh .js .ts .jsx .zx"
+  local script_suffixes=".sh .bat .zsh .js .ts .jsx .zx .ktr .sql"
   move_by_suffix "$script_suffixes" "$downloads/scripts"
 
   step "handle chrome extensions"
@@ -206,6 +215,10 @@ function clear_downloads() {
   step "handle data files"
   local data_suffixes=".csv .json .xml .txt .dat"
   move_by_suffix "$data_suffixes" "$downloads/data"
+
+  step "handle configs"
+  local data_suffixes=".terminal"
+  move_by_suffix "$data_suffixes" "$downloads/config"
 
   step_end 'clear up Downloads'
 }

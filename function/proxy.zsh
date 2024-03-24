@@ -54,8 +54,8 @@ function reset_npm_mirror() {
 
 function set_cli_proxy() {
   if [[ $(export | grep -c 'http[s]*?_proxy') -lt 2 ]]; then
-    export http_proxy=$HTTP_PROXY_ADDR
-    export https_proxy=$HTTP_PROXY_ADDR
+    export HTTP_PROXY=$HTTP_PROXY_ADDR
+    export HTTPS_PROXY=$HTTP_PROXY_ADDR
     judge "set cli proxy to \"$HTTP_PROXY_ADDR\""
   else
     info "cli proxy has already set"
@@ -64,8 +64,8 @@ function set_cli_proxy() {
 
 function unset_cli_proxy() {
   if [[ $(export | grep -c 'http[s]*?_proxy') -ne 0 ]]; then
-    unset http_proxy
-    unset https_proxy
+    unset HTTP_PROXY
+    unset HTTPS_PROXY
     judge "unset cli proxy"
   else
     info "cli proxy has already unset"
