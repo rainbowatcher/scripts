@@ -3,7 +3,7 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 # alias cat='bat'
-alias ls='eza --icons --group-directories-first'
+alias ls='eza --group-directories-first'
 alias lsa='ls -a'
 alias lt='ls -lhF --time-style long-iso -s time'
 alias ll='ls -lhF --time-style long-iso'
