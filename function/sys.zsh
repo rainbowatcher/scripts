@@ -43,3 +43,13 @@ function dun() {
     warn "node_modules not found."
   fi
 }
+
+
+# $1: port
+function port() {
+    lsof -iTCP:$1 -sTCP:LISTEN
+}
+
+function pid() {
+    pgrep -lf $1
+}
