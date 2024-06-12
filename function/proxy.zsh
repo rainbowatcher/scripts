@@ -53,7 +53,7 @@ function reset_npm_mirror() {
 }
 
 function set_cli_proxy() {
-  if [[ $(export | grep -c 'http[s]*?_proxy') -lt 2 ]]; then
+  if [[ $(export | grep -Eic 'HTTP[S]?_PROXY') -lt 2 ]]; then
     export HTTP_PROXY=$HTTP_PROXY_ADDR
     export HTTPS_PROXY=$HTTP_PROXY_ADDR
     judge "set cli proxy to \"$HTTP_PROXY_ADDR\""
@@ -63,7 +63,7 @@ function set_cli_proxy() {
 }
 
 function unset_cli_proxy() {
-  if [[ $(export | grep -c 'http[s]*?_proxy') -ne 0 ]]; then
+  if [[ $(export | grep -Eic 'HTTP[S]?_PROXY') -ne 0 ]]; then
     unset HTTP_PROXY
     unset HTTPS_PROXY
     judge "unset cli proxy"
