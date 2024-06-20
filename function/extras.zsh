@@ -232,3 +232,23 @@ function gi() {
     curl -sfL https://www.toptal.com/developers/gitignore/api/list | tr "," "\n"
   fi
 }
+
+# get major version number
+# $1: software
+function major() {
+  local software=$1
+  if cmd_exists $software; then
+    if [[ $software == "java" ]]; then
+      eval "$software -version 2>&1 | head -1 | awk '{print \$3}' | sed 's/\"//g' | awk -F'.' '{print \$1}'"
+    elif [[ $software == "go" ]]; then
+      eval "$software version | awk '{print \$3}' | sed 's/go//' | awk -F'.' '{print \$1}'"
+    elif [[ $software == "python" ]]; then
+      eval "$software --version | awk '{print \$2}' | awk -F'.' '{print \$1}'"
+    else
+      echo "can't get major version number of $software, use `$software --version` instead."
+      eval "$software --version"
+    fi
+  else
+    error "$software not found."
+  fi
+}

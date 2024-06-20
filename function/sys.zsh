@@ -2,7 +2,7 @@
 function _calc_ram() {
   local sum
   sum=0
-  local grep_cmd=`alias grep | sed "s/.*'\(.*\)'.*/\1/"`
+  local grep_cmd=$(alias grep | sed "s/.*'\(.*\)'.*/\1/")
   for i in $(ps aux | grep -i "$1" | grep -v "$grep_cmd -i $1" | awk '{print $6}'); do
     sum=$(($i + $sum))
   done
@@ -44,12 +44,11 @@ function dun() {
   fi
 }
 
-
 # $1: port
 function port() {
-    lsof -iTCP:$1 -sTCP:LISTEN
+  lsof -iTCP:$1 -sTCP:LISTEN
 }
 
 function pid() {
-    pgrep -lf $1
+  pgrep -lf $1
 }
