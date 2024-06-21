@@ -252,3 +252,24 @@ function major() {
     error "$software not found."
   fi
 }
+
+function zsh_time() {
+    local times=${1:-5}
+    for i in $(seq $times); do
+        /usr/bin/time /bin/zsh -i -c exit
+    done
+}
+
+function cht() {
+    local query=$1
+    local idx=0
+    for item in $@; do
+        if test $idx -eq 0; then
+            idx=$(expr $idx + 1)
+            continue
+        fi
+        query="$query+$item"
+    done
+    echo "curl cht.sh/$query"
+    curl "cht.sh/$query"
+}
