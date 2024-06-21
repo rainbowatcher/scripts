@@ -26,7 +26,7 @@ brew install zoxide eza ripgrep fnm node jq gum
 
 - ..: `cd ..`
 - ...: `cd ../..`
-- ls: `eza --icons --group-directories-first`
+- ls: `eza --group-directories-first`
 - lsa: `ls -a`
 - lt: `ls -lhF --time-style long-iso -s time`
 - ll: `ls -lhF --time-style long-iso`
@@ -40,7 +40,7 @@ brew install zoxide eza ripgrep fnm node jq gum
 - fdf: `fd -Ht f`
 - public_ip: `dig +short myip.opendns.com @resolver1.opendns.com`
 - local_ip: `ipconfig getifaddr en0`
-- ips: `ifconfig -a \| grep -o inet6? (addr:)?\s?((([0-9]+.){3}[0-9]+)\|[a-fA-F0-9:]+) \| awk {sub(/inet6? (addr:)? ?/, \\); print}`
+- ips: `ifconfig -a \| grep -oE inet6? (addr:)?\s?((([0-9]+.){3}[0-9]+)\|[a-fA-F0-9:]+) \| awk {sub(/inet6? (addr:)? ?/, \\); print}`
 
 ### git
 
@@ -60,6 +60,8 @@ brew install zoxide eza ripgrep fnm node jq gum
 - gho: `git hash-object`
 - gl: `git log --oneline --cherry`
 - gll: `git log --graph --cherry --pretty`
+- gtl: `git tag -l`
+- gtd: `git tag -d`
 - gp: `git push`
 - gpl: `git pull`
 - gs: `git switch`
@@ -94,14 +96,15 @@ brew install zoxide eza ripgrep fnm node jq gum
 9. global_clean
 10. clear_downloads
 11. gi
+12. major
+13. zsh_time
+14. cht
 
 ### fe
 
 1. install_node_package
 2. setup_eslint_config
 3. init_tsconfig
-4. install_profile_default_exts
-5. setup_vscode_default_settings
 
 ### fzf
 
@@ -145,4 +148,6 @@ brew install zoxide eza ripgrep fnm node jq gum
 3. dud
 4. dua
 5. dun
+6. port
+7. pid
 
