@@ -30,4 +30,8 @@ alias gp='git push'
 alias gpl='git pull'
 alias gs='git switch'
 alias gsl='git shortlog'
+# current git repo's status in concisely
 alias gst='git status -s'
+
+# soft reset current branch to last commit
+alias gundo='git reset --soft HEAD^'
