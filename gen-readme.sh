@@ -23,14 +23,14 @@ HTTP_PROXY_ADDR=http://127.0.0.1:12345
 source \$SCRIPTS_ROOT/main.zsh all
 \`\`\`
 
-## :exclamation: Attension
-
-- Remember to change the proxy port number to you own.
-- You better install [zoxide](https://github.com/ajeetdsouza/zoxide), eza, ripgrep, fnm, node, jq, gum through below command.
-
-\`\`\`shell
-brew install zoxide eza ripgrep fnm node jq gum
-\`\`\`
+> [!NOTE]
+>
+> - Remember to change the proxy port number to you own.
+> - this repository used some third-party packages: \`zoxide\`, \`eza\`, \`ripgrep\`, \`fnm\`, \`node\`, \`jq\`, \`gum\`...etc
+> 
+> \`\`\`shell
+> brew install zoxide eza ripgrep fnm node jq gum
+> \`\`\`
 
 ## Alias
 
