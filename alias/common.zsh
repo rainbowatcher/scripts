@@ -3,20 +3,36 @@
 alias ..='cd ..'
 alias ...='cd ../..'
 # alias cat='bat'
-alias ls='eza --group-directories-first'
+
+if cmd_exists exa; then
+    alias ls='eza --group-directories-first'
+    alias lt='ls -lhF --time-style long-iso -s time'
+    alias ll='ls -lhF --time-style long-iso'
+    alias lg='ls -lbGahF --time-style long-iso'
+    alias lx='ls -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
+else 
+    alias ll='ls -lhF'
+fi
+
 alias lsa='ls -a'
-alias lt='ls -lhF --time-style long-iso -s time'
-alias ll='ls -lhF --time-style long-iso'
-alias lg='ls -lbGahF --time-style long-iso'
-alias lx='ls -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
-alias zshrc='code ~/.zshrc'
-alias rm='trash'
+
+if cmd_exists code; then
+    alias zshrc='code ~/.zshrc'
+fi
+
+if cmd_exists trash; then
+    alias rm='trash'
+fi
+
 # alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 # alias grep='rg --color=auto'
-alias fdd='fd -Ht d'
-alias fdf='fd -Ht f'
+
+if cmd_exists fd; then
+    alias fdd='fd -Ht d'
+    alias fdf='fd -Ht f'
+fi
 
 # list whats inside packed file
 alias -s zip="unzip -l"
