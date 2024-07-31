@@ -11,62 +11,67 @@ HTTP_PROXY_ADDR=http://127.0.0.1:12345
 source $SCRIPTS_ROOT/main.zsh all
 ```
 
-## :exclamation: Attension
-
-- Remember to change the proxy port number to you own.
-- You better install [zoxide](https://github.com/ajeetdsouza/zoxide), eza, ripgrep, fnm, node, jq, gum through below command.
-
-```shell
-brew install zoxide eza ripgrep fnm node jq gum
-```
+> [!NOTE]
+>
+> - Remember to change the proxy port number to you own.
+> - this repository used some third-party packages: `zoxide`, `eza`, `ripgrep`, `fnm`, `node`, `jq`, `gum`...etc
+> 
+> ```shell
+> brew install zoxide eza ripgrep fnm node jq gum
+> ```
 
 ## Alias
 
-### cli
+### common
 
 - ..: `cd ..`
 - ...: `cd ../..`
-- ls: `eza --group-directories-first`
 - lsa: `ls -a`
-- lt: `ls -lhF --time-style long-iso -s time`
-- ll: `ls -lhF --time-style long-iso`
-- lg: `ls -lbGahF --time-style long-iso`
-- lx: `ls -lbhHigUmuSa@ --time-style`
-- zshrc: `code ~/.zshrc`
-- rm: `trash`
 - cp: `cp -i`
 - mv: `mv -i`
-- fdd: `fd -Ht d`
-- fdf: `fd -Ht f`
 - public_ip: `dig +short myip.opendns.com @resolver1.opendns.com`
 - local_ip: `ipconfig getifaddr en0`
 - ips: `ifconfig -a \| grep -oE inet6? (addr:)?\s?((([0-9]+.){3}[0-9]+)\|[a-fA-F0-9:]+) \| awk {sub(/inet6? (addr:)? ?/, \\); print}`
+- cp: `nocorrect cp`
+- man: `nocorrect man`
+- mkdir: `nocorrect mkdir`
+- mv: `nocorrect mv`
+- sudo: `nocorrect sudo`
+- su: `nocorrect su`
+
+### docker
+
+- dps: `docker ps -a --format table {{.Names}}\t{{.Image}}\t{{.Status}}`
+- dip: `docker inspect -f {{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}`
+- dstart: `docker start`
+- dstop: `docker stop`
 
 ### git
 
 - gaa: `git add .`
-- gba: `git branch -a`
-- gbd: `git branch --delete`
-- gbrn: `git branch -m`
 - gc: `git commit -m`
 - gca: `git commit -am`
 - gcam: `git commit --amend --no-edit`
+- gp: `git push`
+- gpl: `git pull`
+- gcl: `git clone`
+- gcl1: `git clone --depth 1`
+- gl: `git log --oneline --cherry`
+- gll: `git log --graph --cherry --pretty`
+- gsl: `git shortlog`
+- gtl: `git tag -l`
+- gtd: `git tag -d`
+- gba: `git branch -a`
+- gbd: `git branch --delete`
+- gbrn: `git branch -m`
+- gs: `git switch`
+- gst: `git status -s`
 - gcat: `git cat-file`
 - gcf: `git config -l`
-- gcl1: `git clone --depth 1`
-- gcl: `git clone`
 - gcln: `git clean -xdf`
 - gdf: `git difftool`
 - gho: `git hash-object`
-- gl: `git log --oneline --cherry`
-- gll: `git log --graph --cherry --pretty`
-- gtl: `git tag -l`
-- gtd: `git tag -d`
-- gp: `git push`
-- gpl: `git pull`
-- gs: `git switch`
-- gsl: `git shortlog`
-- gst: `git status -s`
+- gundo: `git reset --soft HEAD^`
 
 ### mac
 
@@ -83,28 +88,20 @@ brew install zoxide eza ripgrep fnm node jq gum
 
 ## Functions
 
+### clean
+
+1. clean_maven
+2. clean_aira2
+3. clean_ds_store
+4. global_clean
+5. clear_downloads
+
 ### extras
 
-1. update_node
-2. update_node_global_pkg
-3. update_rust
-4. update_python
-5. global_update
-6. clean_maven
-7. clean_aira2
-8. clean_ds_store
-9. global_clean
-10. clear_downloads
-11. gi
-12. major
-13. zsh_time
-14. cht
-
-### fe
-
-1. install_node_package
-2. setup_eslint_config
-3. init_tsconfig
+1. gi
+2. major
+3. zsh_time
+4. cht
 
 ### fzf
 
@@ -136,7 +133,6 @@ brew install zoxide eza ripgrep fnm node jq gum
 19. unproxy
 20. reset_brew_mirror
 21. set_brew_mirror
-22. set_v2ray_route
 
 ### rc
 
@@ -150,4 +146,12 @@ brew install zoxide eza ripgrep fnm node jq gum
 5. dun
 6. port
 7. pid
+
+### update
+
+1. update_node
+2. update_node_global_pkg
+3. update_rust
+4. update_python
+5. global_update
 
