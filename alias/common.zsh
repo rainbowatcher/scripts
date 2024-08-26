@@ -4,7 +4,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 # alias cat='bat'
 
-if cmd_exists exa; then
+if cmd_exists eza; then
     alias ls='eza --group-directories-first'
     alias lt='ls -lhF --time-style long-iso -s time'
     alias ll='ls -lhF --time-style long-iso'
