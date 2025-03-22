@@ -68,7 +68,7 @@ function clear_downloads() {
       local suffixes_arr=($suffixes)
     fi
     for suffix in ${suffixes_arr[@]}; do
-      local matched_files=($(echo $files | awk -v p="$suffix\$" '$0 ~ p {gsub(/ /,"∞™≠∞"); print}'))
+      local matched_files=($(echo $files | awk -v p="$suffix\$" 'BEGIN {IGNORECASE = 1} $0 ~ p {gsub(/ /,"∞™≠∞"); print}'))
       for file in ${matched_files[@]}; do
         local file=$(echo $file | awk '{gsub("∞™≠∞"," ");print}')
         local file_name=$(basename "$file")
@@ -92,7 +92,7 @@ function clear_downloads() {
 
   # image
   step "handle images"
-  local img_suffixes=".jpg .png .drawio .vsdx .gif .jpeg .svg"
+  local img_suffixes=".jpg .png .drawio .vsdx .gif .jpeg .svg .webp"
   move_by_suffix "$img_suffixes" "$downloads/image"
 
   step "handle packages"
@@ -100,18 +100,18 @@ function clear_downloads() {
   move_by_suffix "$pkg_suffixes" "$downloads/package"
 
   step "handle compress file"
-  local compress_suffixes=".zip .gz .gz2 .rar .7z .zip"
+  local compress_suffixes=".zip .gz .gz2 .rar .7z .zip .tar.xz"
   move_by_suffix "$compress_suffixes" "$downloads/compress"
 
   step "handle jars"
   move_by_suffix ".jar" "$downloads/jars"
 
   step "handle system mirror"
-  local mirror_suffixes=".iso .ISO"
+  local mirror_suffixes=".iso"
   move_by_suffix "$mirror_suffixes" "$downloads/mirrors"
 
   step "handle scripts"
-  local script_suffixes=".sh .bat .zsh .js .ts .jsx .zx .ktr .sql"
+  local script_suffixes=".sh .bat .zsh .js .ts .jsx .zx .ktr .sql .py"
   move_by_suffix "$script_suffixes" "$downloads/scripts"
 
   step "handle chrome extensions"
@@ -122,8 +122,16 @@ function clear_downloads() {
   move_by_suffix "$data_suffixes" "$downloads/data"
 
   step "handle configs"
-  local data_suffixes=".terminal"
-  move_by_suffix "$data_suffixes" "$downloads/config"
+  local config_suffixes=".terminal"
+  move_by_suffix "$config_suffixes" "$downloads/config"
+
+  step "handle videos"
+  local video_suffixes=".mp4 .avi .rmvb"
+  move_by_suffix "$video_suffixes" "$downloads/video"
+
+  step "handle fonts"
+  local video_suffixes=".ttf .oft .woff .woff2"
+  move_by_suffix "$video_suffixes" "$downloads/fonts"
 
   step_end 'clear up Downloads'
 }
