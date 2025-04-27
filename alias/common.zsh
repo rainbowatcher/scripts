@@ -22,11 +22,6 @@ if is_callable trash; then
     alias rm='trash'
 fi
 
-# alias rm='rm -i'
-alias cp='cp -i'
-alias mv='mv -i'
-alias grep='rg --color=auto'
-
 # list whats inside packed file
 alias -s zip="unzip -l"
 alias -s rar="unrar l"
@@ -36,9 +31,11 @@ alias -s gz="gunzip -l"
 
 
 # CORRECTION
-alias cp="nocorrect cp"
+alias cp="nocorrect cp -i"
 alias man="nocorrect man"
 alias mkdir="nocorrect mkdir"
-alias mv="nocorrect mv"
+alias mv="nocorrect mv -i"
 alias sudo="nocorrect sudo"
 alias su="nocorrect su"
+
+alias grep='grep --color'
