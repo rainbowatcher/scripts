@@ -1,0 +1,7 @@
+if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c proxy) -eq 1 ]]; then
+    sed -ie '/^proxy/d' "$HOME/.cargo/config.yaml"
+    sed -ie '/^\[http/d' "$HOME/.cargo/config.yaml"
+    judge "unset cargo proxy"
+else
+    info "cargo proxy has already unset"
+fi

@@ -1,0 +1,6 @@
+if [[ $(cat ~/.cargo/config.yaml | grep -c source.mirror) -eq 1 ]]; then
+    info "cargo mirror has already set"
+else
+    echo "\n[source.crates-io]\nreplace-with = 'mirror'\n\n[source.mirror]\nregistry = \"sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/\"" >>$HOME/.cargo/config.yaml
+    judge "set cargo mirror to https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
+fi

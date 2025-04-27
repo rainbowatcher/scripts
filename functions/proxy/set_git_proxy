@@ -1,0 +1,7 @@
+if [ ! $(git config --get http.proxy) ]; then
+    git config --global http.proxy $HTTP_PROXY_ADDR
+    git config --global https.proxy $HTTP_PROXY_ADDR
+    judge "set git proxy to \"$HTTP_PROXY_ADDR\""
+else
+    info "git proxy has already set"
+fi

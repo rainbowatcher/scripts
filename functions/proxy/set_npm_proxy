@@ -1,0 +1,10 @@
+local npm_proxy npm_mirror
+npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
+npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
+if [[ $npm_proxy == '' ]]; then
+  echo "proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
+  echo "https-proxy=$HTTP_PROXY_ADDR" >>"$HOME/.npmrc"
+  judge "set npm proxy to \"$HTTP_PROXY_ADDR\""
+else
+  info "npm proxy has already set"
+fi

@@ -1,0 +1,1 @@
+alias pid="pgrep -lf"

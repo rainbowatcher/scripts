@@ -1,0 +1,13 @@
+set_cli_proxy
+
+set_git_proxy
+
+set_npm_proxy
+
+set_cargo_proxy
+
+reset_cargo_mirror
+
+reset_npm_mirror
+
+reset_rustup_mirror

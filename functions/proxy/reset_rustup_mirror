@@ -1,0 +1,6 @@
+if [[ $(export | grep -c RUSTUP_UPDATE_ROOT) -lt 1 ]]; then
+    info "rustup mirror has already unset"
+else
+    unset RUSTUP_UPDATE_ROOT RUSTUP_DIST_SERVER
+    judge "reset rustup mirror"
+fi

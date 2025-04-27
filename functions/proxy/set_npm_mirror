@@ -1,0 +1,10 @@
+local npm_proxy npm_mirror
+npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
+npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
+if [[ $npm_mirror =~ 'npmjs.org' ]]; then
+  sed -ie 's$home=.*$home=https://npmmirror.com$g' $HOME/.npmrc
+  sed -ie 's$registry=.*$registry=https://registry.npmmirror.com/$g' $HOME/.npmrc
+  judge "set npm mirror to \"https://registry.npmmirror.com/\""
+else
+  info "taobao mirror has already use"
+fi

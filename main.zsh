@@ -1,40 +1,22 @@
 #!/usr/bin/env zsh
 
-SCRIPTS_ROOT=${SCRIPTS_ROOT:=$(cd $(dirname $0); pwd)}
+FONT='\033[0m'
+GREEN="\033[1;32m"
+RED='\033[1;31m'
+YELLOW='\033[1;33m'
+BLUE='\033[1;36m'
 
-source $SCRIPTS_ROOT/common.zsh
-source_list=("alias" "function" "completion")
+# add folder in functions to fpath
+fpath=(
+    "$SCRIPTS_ROOT"/functions/**/*(N/)
+    $fpath
+)
 
-load_all() {
-  for source in "${source_list[@]}"; do
-  source_all "$source"
-  done
-}
-
-source_all() {
-  local abs_localtion="$SCRIPTS_ROOT/$1"
-  local files=($(ls $abs_localtion/*))
-  for item in "${files[@]}"; do
-    source $item
-  done
-}
-
-for arg in "$@"; do
-  case "$arg" in
-  "all")
-    load_all
-    ;;
-  "completion")
-    source_all "$arg"
-    ;;
-  "alias")
-    source_all "$arg"
-    ;;
-  "function")
-    source_all "$arg"
-    ;;
-  *)
-    warn "option [$arg] not exists."
-    ;;
-  esac
+# load functions
+for func_file in "$SCRIPTS_ROOT"/{functions,completions,alias}/**/*(.); do
+    if [[ $func_file =~ /functions/ ]]; then
+        autoload -Uz "${func_file:t}"; 
+    else
+        zsh-defer source "${func_file}"
+    fi
 done

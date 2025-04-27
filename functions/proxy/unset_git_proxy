@@ -1,0 +1,7 @@
+if [ $(git config --get http.proxy) ]; then
+    git config --global --unset http.proxy
+    git config --global --unset https.proxy
+    judge "unset git proxy"
+else
+    info "git proxy has already unset"
+fi

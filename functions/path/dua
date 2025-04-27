@@ -1,0 +1,2 @@
+local target=$1
+du -ahd1 $target | sort -h

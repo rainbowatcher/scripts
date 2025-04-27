@@ -1,0 +1,16 @@
+local remote_latest_version=$(fnm ls-remote --lts | grep -o ".*)$" | awk '{print $1}' | tail -1)
+local current_version=$(fnm current)
+local local_latest_version=$(fnm ls | awk '{print $2}' | grep -e 'v.*' | tail -1)
+if [[ $remote_latest_version == $local_latest_version ]]; then
+    info "latest node version [$remote_latest_version] is installed"
+else
+    info "local latest node version is $local_latest_version"
+    if gum confirm "install latest node version $remote_latest_version ?"; then
+        fnm install $remote_latest_version
+    else
+        info "skip update node version"
+    fi
+    if gum comfirm "use $remote_latest_version as default ?"; then
+        fnm default $remote_latest_version
+    fi
+fi

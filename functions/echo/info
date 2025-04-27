@@ -1,0 +1,1 @@
+echo "${GREEN}[INFO]${FONT} $@"

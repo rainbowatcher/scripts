@@ -32,3 +32,11 @@ unsetopt prompt_cr prompt_sp
 setopt interactivecomments
 # make `?` in string not need for quote
 setopt no_nomatch
+
+export HISTCONTROL='ignoreboth';
+
+# Highlight section titles in manual pages.
+export LESS_TERMCAP_md="${yellow}";
+
+# Don’t clear the screen after quitting a manual page.
+export MANPAGER='less -X';

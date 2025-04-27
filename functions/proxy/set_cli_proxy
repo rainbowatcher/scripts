@@ -1,0 +1,7 @@
+if [[ $(export | grep -Eic 'HTTP[S]?_PROXY') -lt 2 ]]; then
+    export HTTP_PROXY=$HTTP_PROXY_ADDR
+    export HTTPS_PROXY=$HTTP_PROXY_ADDR
+    judge "set cli proxy to \"$HTTP_PROXY_ADDR\""
+else
+    info "cli proxy has already set"
+fi

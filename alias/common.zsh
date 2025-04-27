@@ -2,18 +2,19 @@
 
 alias ..='cd ..'
 alias ...='cd ../..'
+alias ....='cd ../../..'
 # alias cat='bat'
 
 if cmd_exists eza; then
     alias ls='eza --group-directories-first'
-    alias lt='ls -lhF --time-style long-iso -s time'
-    alias ll='ls -lhF --time-style long-iso'
-    alias lg='ls -lbGahF --time-style long-iso'
-    alias lx='ls -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 else 
     alias ll='ls -lhF'
 fi
 
+alias lt='ls -lhF --time-style long-iso -s time'
+alias ll='ls -lhF --time-style long-iso'
+alias lg='ls -lbGahF --time-style long-iso'
+alias lx='ls -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 alias lsa='ls -a'
 
 if cmd_exists code; then

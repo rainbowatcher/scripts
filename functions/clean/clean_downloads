@@ -1,0 +1,74 @@
+local downloads="$HOME/Downloads"
+local files=$(find $downloads -type d)
+
+move_by_suffix() {
+    local suffixes_arr=$1
+    local target_dir=$2
+    for suffix in ${suffixes_arr[@]}; do
+        local matched_files=($(echo $files | awk -v p="$suffix\$" 'BEGIN {IGNORECASE = 1} $0 ~ p {gsub(/ /,"∞™≠∞"); print}'))
+        for file in ${matched_files[@]}; do
+            echo $file
+            # local file=$(echo $file | awk '{gsub("∞™≠∞"," ");print}')
+            # local file_name=$(basename "$file")
+            # if [ -f "$file" ]; then
+            #     if [ ! -e "$target_dir/$file_name" ]; then
+            #         mv -v "$file" "$target_dir/$file_name"
+            #         # echo "$file" "$target_dir/$file_name"
+            #     else
+            #         warn "target file exists: $target_dir/$file_name"
+            #     fi
+            # else
+            #     error "can't move $file to $target_dir/$file_name"
+            # fi
+        done
+    done
+}
+
+step "handle documents"
+local doc_suffixes=(.doc .docx .xlsx .pdf .md .html)
+move_by_suffix "$doc_suffixes" "$downloads/document"
+
+# image
+step "handle images"
+local img_suffixes=(.jpg .png .drawio .vsdx .gif .jpeg .svg .webp)
+move_by_suffix "$img_suffixes" "$downloads/image"
+
+step "handle packages"
+local pkg_suffixes=".pkg .dmg .exe .msi"
+move_by_suffix "$pkg_suffixes" "$downloads/package"
+
+step "handle compress file"
+local compress_suffixes=".zip .gz .gz2 .rar .7z .zip .tar.xz"
+move_by_suffix "$compress_suffixes" "$downloads/compress"
+
+step "handle jars"
+move_by_suffix ".jar" "$downloads/jars"
+
+step "handle system mirror"
+local mirror_suffixes=".iso"
+move_by_suffix "$mirror_suffixes" "$downloads/mirrors"
+
+step "handle scripts"
+local script_suffixes=".sh .bat .zsh .js .ts .jsx .zx .ktr .sql .py"
+move_by_suffix "$script_suffixes" "$downloads/scripts"
+
+step "handle chrome extensions"
+move_by_suffix ".crx" "$downloads/chromeExtensions"
+
+step "handle data files"
+local data_suffixes=".csv .json .xml .txt .dat"
+move_by_suffix "$data_suffixes" "$downloads/data"
+
+step "handle configs"
+local config_suffixes=".terminal"
+move_by_suffix "$config_suffixes" "$downloads/config"
+
+step "handle videos"
+local video_suffixes=".mp4 .avi .rmvb"
+move_by_suffix "$video_suffixes" "$downloads/video"
+
+step "handle fonts"
+local video_suffixes=".ttf .oft .woff .woff2"
+move_by_suffix "$video_suffixes" "$downloads/fonts"
+
+step_end 'clear up Downloads'

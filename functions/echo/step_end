@@ -1,0 +1,4 @@
+unset STEP_NUM
+if [ $# -gt 0 ]; then
+  echo "${BLUE}[STEP - END]${FONT} $@"
+fi

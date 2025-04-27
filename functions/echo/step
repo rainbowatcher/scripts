@@ -1,0 +1,7 @@
+if [ $STEP_NUM ]; then
+  STEP_NUM=$(($STEP_NUM + 1))
+  echo "${BLUE}[STEP - $STEP_NUM]${FONT} $@"
+else
+  STEP_NUM=0
+  step $@
+fi

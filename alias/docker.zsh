@@ -1,7 +1,6 @@
 #!/usr/bin/env zsh
 
 if ! cmd_exists docker; then
-    warn "docker command not found, skip docker alias."
     return
 fi
 

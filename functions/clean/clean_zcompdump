@@ -1,0 +1,6 @@
+autoload -Uz compinit
+if [[ -n ${ZDOTDIR}/.zcompdump(#qN.mh+24) ]]; then
+    compinit -d ${ZDOTDIR}/.zcompdump
+else
+    compinit -C -d ${ZDOTDIR}/.zcompdump
+fi

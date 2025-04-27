@@ -1,0 +1,10 @@
+local npm_proxy npm_mirror
+npm_proxy=$(cat $HOME/.npmrc | grep ^proxy)
+npm_mirror=$(cat $HOME/.npmrc | grep ^registry)
+if [[ $npm_mirror =~ 'npmmirror' ]]; then
+    sed -ie 's$home=.*npmmirror.com$home=https://www.npmjs.com$g' "$HOME/.npmrc"
+    sed -ie 's$registry=.*npmmirror.com$registry=https://registry.npmjs.org$g' "$HOME/.npmrc"
+    judge "reset npm mirror to \"https://registry.npmjs.org\""
+else
+    info "npm mirror has already reset"
+fi
