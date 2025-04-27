@@ -1,4 +1,4 @@
 local times=${1:-5}
 for i in $(seq $times); do
-    /usr/bin/time /bin/zsh -i -c exit
+    /usr/bin/time /bin/zsh -lic exit
 done
