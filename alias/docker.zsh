@@ -1,8 +1,6 @@
 #!/usr/bin/env zsh
 
-if ! cmd_exists docker; then
-    return
-fi
+[ ! is_callable docker ] && return
 
 alias dps="docker ps -a --format 'table {{.Names}}\t{{.Image}}\t{{.Status}}'"
 alias dip="docker inspect -f '{{range .NetworkSettings.Networks}}{{.IPAddress}}{{end}}'"
