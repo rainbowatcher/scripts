@@ -8,7 +8,7 @@
 [ "$SAVEHIST" -lt 10000 ] && SAVEHIST=10000
 
 ## History command configuration
-setopt EXTENDED_HISTORY       # record timestamp of command in HISTFILE
+# https://zsh.sourceforge.io/Doc/Release/Options.html
 setopt INC_APPEND_HISTORY     # Write to the history file immediately, not when the shell exits.
 setopt HIST_EXPIRE_DUPS_FIRST # delete duplicates first when HISTFILE size exceeds HISTSIZE
 setopt HIST_IGNORE_DUPS       # ignore duplicated commands history list
@@ -18,15 +18,14 @@ setopt HIST_IGNORE_SPACE      # ignore commands that start with space
 setopt HIST_REDUCE_BLANKS     # Remove superfluous blanks before recording entry.
 setopt HIST_SAVE_NO_DUPS      # Don't write duplicate entries in the history file.
 setopt HIST_VERIFY            # show command with history expansion to user before running it
-setopt SHARE_HISTORY          # share command history data
+unsetopt SHARE_HISTORY        # share command history data, enable this option will auto enable EXTENDED_HISTORY, conflict with INC_APPEND_HISTORY
+unsetopt EXTENDED_HISTORY       # record timestamp of command in HISTFILE
 
 
 # Disable zsh correction
 unsetopt correct_all
 unsetopt correct
 DISABLE_CORRECTION="true"
-
-# unsetopt share_history
 
 # zsh prompt
 # setopt prompt_subst
