@@ -1,6 +1,7 @@
-if [[ $(cat ~/.cargo/config.yaml | grep -c source.mirror) -eq 1 ]]; then
+local __CARGO_CONFIG_FILE=${__CARGO_CONFIG_FILE:-"$HOME/.cargo/config.yaml"}
+if [[ $(grep -c source.mirror "${__CARGO_CONFIG_FILE}") -eq 1 ]]; then
     info "cargo mirror has already set"
 else
-    echo "\n[source.crates-io]\nreplace-with = 'mirror'\n\n[source.mirror]\nregistry = \"sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/\"" >>$HOME/.cargo/config.yaml
+    echo "\n[source.crates-io]\nreplace-with = 'mirror'\n\n[source.mirror]\nregistry = \"sparse+https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/\"" >>"${__CARGO_CONFIG_FILE}"
     judge "set cargo mirror to https://mirrors.tuna.tsinghua.edu.cn/crates.io-index/"
 fi

@@ -1,6 +1,7 @@
-if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c proxy) -eq 1 ]]; then
+local __CARGO_CONFIG_FILE=${__CARGO_CONFIG_FILE:-"$HOME/.cargo/config.yaml"}
+if [[ $(grep -c proxy "${__CARGO_CONFIG_FILE}") -eq 1 ]]; then
     info "cargo proxy has already set"
 else
-    echo "[http]\nproxy=\"${HTTP_PROXY_ADDR:7}\"" >>"$HOME/.cargo/config.yaml"
+    echo "\n[http]\nproxy=\"${HTTP_PROXY_ADDR:7}\"" >>"${__CARGO_CONFIG_FILE}"
     judge "set cargo proxy to \"${HTTP_PROXY_ADDR:7}\""
 fi

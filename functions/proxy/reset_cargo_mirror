@@ -1,7 +1,8 @@
-if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c "registry") -eq 1 ]]; then
-    sed -ie '/^$/d' "$HOME/.cargo/config.yaml"
-    sed -ie '/^\[source/d' "$HOME/.cargo/config.yaml"
-    sed -ie '/mirror/d' "$HOME/.cargo/config.yaml"
+local __CARGO_CONFIG_FILE=${__CARGO_CONFIG_FILE:-"$HOME/.cargo/config.yaml"}
+if [[ $(grep -c "registry" "${__CARGO_CONFIG_FILE}") -eq 1 ]]; then
+    sed -ie '/^$/d' "${__CARGO_CONFIG_FILE}"
+    sed -ie '/^\[source/d' "${__CARGO_CONFIG_FILE}"
+    sed -ie '/mirror/d' "${__CARGO_CONFIG_FILE}"
     judge "unset cargo mirror"
 else
     info "cargo mirror has already set"

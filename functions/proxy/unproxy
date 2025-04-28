@@ -10,6 +10,4 @@ set_cargo_mirror
 
 set_npm_mirror
 
-set_pip_mirror
-
 set_rustup_mirror
