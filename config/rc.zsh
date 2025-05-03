@@ -49,3 +49,6 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 EDITOR="vim"
 BAT_THEME="TwoDark"
 TERM=xterm-256color
+
+# use emacs mode key mappings
+bindkey -e
