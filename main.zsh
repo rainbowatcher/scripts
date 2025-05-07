@@ -21,6 +21,7 @@ source "${0:h}"/config/rc.zsh
 fpath=(
     # / for directory, N for empty folder to empty string
     "${0:h}"/functions/**/*(N/)
+    "${0:h}"/completions
     $fpath
 )
 
@@ -30,6 +31,6 @@ for __auto_laod_func_file in "${0:h}"/functions/**/*(.); do
 done
 
 # load completions,alias,config
-for __script_file in "${0:h}"/{completions,alias}/*(.); do
+for __script_file in "${0:h}"/alias/*(.); do
     zsh-defer source "${__script_file}"
 done
