@@ -1,4 +1,4 @@
-[ ! is_callable just ] && return
+[ ! cmd_exists just ] && return
 
 alias j="just"
 alias jc="just --choose"
