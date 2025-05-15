@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
-_DIR="completions"
+COMPLETIONS_DIR="completions"
 
-pnpm completion zsh > "$_DIR/pnpm"
-# codegpt completion zsh > "$_DIR/codegpt" # not work now
-fnm completions --shell zsh > "$_DIR/fnm"
-npm completion > "$_DIR/npm"
-pip completion --zsh > "$_DIR/pip"
-pnpm completion zsh > "$_DIR/pnpm"
+trash -r "./$COMPLETIONS_DIR"/*
+
+
+# codegpt completion zsh > "$COMPLETIONS_DIR/_codegpt" # not work now
+fnm completions --shell zsh > "$COMPLETIONS_DIR/_fnm"
+npm completion > "$COMPLETIONS_DIR/_npm_completion"
+pip completion --zsh > "$COMPLETIONS_DIR/__pip"
+pnpm completion zsh > "$COMPLETIONS_DIR/_pnpm_completion"
+delta --generate-completion zsh > "$COMPLETIONS_DIR/_delta"
