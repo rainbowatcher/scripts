@@ -1,4 +1,4 @@
-#!/usr/bin/env zsh
+#!/usr/bin/env bash
 
 # Make sure we’re using the latest Homebrew. Upgrade any already-installed formulae.
 brew update && brew upgrade

@@ -1,2 +1,6 @@
-local target=$1
-du -ahd1 $target | sort -h
+local target=${1:-.}
+if cmd_exists gdu; then
+    gdu -ahd1 $target | sort -h
+else
+    du -sh $target/* | sort -h
+fi

@@ -1,2 +1,2 @@
-local target=$1
+local target=${1:-.}
 du -hd1 $target | sort -h
