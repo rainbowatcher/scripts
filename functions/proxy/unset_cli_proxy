@@ -1,6 +1,8 @@
 if [[ $(export | grep -Eic 'HTTP[S]?_PROXY') -ne 0 ]]; then
     unset HTTP_PROXY
     unset HTTPS_PROXY
+    unset http_proxy
+    unset https_proxy
     judge "unset cli proxy"
 else
     info "cli proxy has already unset"
