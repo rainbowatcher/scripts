@@ -31,10 +31,23 @@ DISABLE_CORRECTION="true"
 # setopt prompt_subst
 # unsetopt prompt_cr prompt_sp
 
+# Disable unnecessary modules
+zmodload -i zsh/complist
+zmodload -i zsh/terminfo
+# 禁用 core dump
+limit coredumpsize 0
+# 禁用流控
+setopt NO_FLOW_CONTROL
+# 关闭提示音
+unsetopt BEEP
+
 # make zsh can use `#` in interactive shell
 setopt interactivecomments
 # make `?` in string not need for quote
 setopt no_nomatch
+# Better wildcard matching
+setopt EXTENDED_GLOB
+setopt NUMERIC_GLOB_SORT
 
 # delete duplicate history and ignore command start with whitespace, option: `ignorespace` | `erasedups` | `ignoreboth`
 HISTCONTROL='ignoreboth';
