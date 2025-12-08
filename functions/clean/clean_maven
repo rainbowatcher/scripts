@@ -1,4 +1,4 @@
-if cmd_exists fd; then
+if ! type fd &>/dev/null; then
     fd ".*lastUpdated.*?" ~/.m2/repository -t f -x echo delete {} \; -x rm {} \;
     fd ".*repositories.*?" ~/.m2/repository -t f -x echo delete {} \; -x rm {} \;
     fd '.*\$.*' ~/.m2/repository -t d -x echo delete {} \; -x rm -r {} \;

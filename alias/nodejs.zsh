@@ -1,4 +1,4 @@
-[ ! cmd_exists ni ] && return
+[ ! ! type ni &>/dev/null ] && return
 
 alias nio="ni --prefer-offline"
 alias nid="ni -D"
@@ -6,7 +6,7 @@ alias nido="ni -D --prefer-offline"
 alias nidw="ni -wD"
 alias niw="ni -w"
 
-[ ! cmd_exists nr ] && return
+[ ! ! type nr &>/dev/null ] && return
 
 alias d="nr dev"
 alias s="nr start"

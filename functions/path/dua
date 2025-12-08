@@ -1,5 +1,5 @@
 local target=${1:-.}
-if cmd_exists gdu; then
+if ! type gdu &>/dev/null; then
     gdu -ahd1 $target | sort -h
 else
     du -sh $target/* | sort -h

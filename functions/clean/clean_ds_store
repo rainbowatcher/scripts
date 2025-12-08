@@ -1,4 +1,4 @@
-if cmd_exists fd; then
+if ! type fd &>/dev/null; then
   fd -IH ".DS_Store" . -x echo delete {} \; -x rm {} \;
 else
   find . -type f -name ".DS_Store" -exec echo {} \; -exec rm -r {} \;

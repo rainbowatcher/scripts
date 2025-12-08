@@ -32,5 +32,5 @@ done
 
 # load completions,alias,config
 for __script_file in "${0:h}"/alias/*(.); do
-    zsh-defer source "${__script_file}"
+    source "${__script_file}"
 done

@@ -1,4 +1,4 @@
-[ ! cmd_exists just ] && return
+[ ! ! type just &>/dev/null ] && return
 
 alias j="just"
 alias jc="just --choose"

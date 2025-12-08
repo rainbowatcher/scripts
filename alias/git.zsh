@@ -1,4 +1,4 @@
-[ ! cmd_exists git ] && return
+[ ! ! type git &>/dev/null ] && return
 
 # region: MARK: commit
 alias gaa='git add .'
