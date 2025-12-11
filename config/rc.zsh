@@ -62,6 +62,9 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 EDITOR="vim"
 BAT_THEME="TwoDark"
 TERM=xterm-256color
+# WORDCHARS=${WORDCHARS//[\/-]}
+WORDCHARS=''
 
 # use emacs mode key mappings
 bindkey -e
+[[ -n "${terminfo[kdch1]}" ]] && bindkey "${terminfo[kdch1]}" kill-word # 向前删除一个单词
