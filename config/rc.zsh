@@ -67,4 +67,4 @@ WORDCHARS=''
 
 # use emacs mode key mappings
 bindkey -e
-[[ -n "${terminfo[kdch1]}" ]] && bindkey "${terminfo[kdch1]}" kill-word # 向前删除一个单词
+bindkey '^[[3;3~' kill-word # 向前删除一个单词
