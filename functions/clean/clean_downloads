@@ -31,6 +31,7 @@ move_by_suffix() {
         fi
 
         mv "${file}" "${target_dir}/${file:t}"
+        info "${file} -> ${target_dir}/${file:t}"
     done
 }
 
