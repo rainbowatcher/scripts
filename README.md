@@ -164,7 +164,6 @@ eval "$(sheldon source)"
 - error
 - info
 - judge
-- o
 - step
 - step_end
 - warn
@@ -207,7 +206,7 @@ eval "$(sheldon source)"
 
 ### sys
 
-- cmd_exists
+- o
 - port
 - ram
 
