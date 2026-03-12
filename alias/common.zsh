@@ -2,7 +2,7 @@ alias ..='cd ..'
 alias ...='cd ../..'
 alias ....='cd ../../..'
 
-if ! type eza &>/dev/null; then
+if type eza &>/dev/null; then
     alias ls='eza --group-directories-first'
 else
     alias ls='ls --color'
@@ -14,7 +14,7 @@ alias lg='ls -lbGahF --time-style long-iso'
 alias lx='ls -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 alias lsa='ls -a'
 
-if ! type trash &>/dev/null; then
+if type trash &>/dev/null; then
     alias rm='trash'
 fi
 

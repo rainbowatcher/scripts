@@ -1,9 +1,16 @@
-if [[ $(export | grep -Eic 'HTTP[S]?_PROXY') -lt 2 ]]; then
+if [[ -z ${HTTP_PROXY_ADDR:-} ]]; then
+    error "HTTP_PROXY_ADDR is not set"
+elif [[ \
+    ${HTTP_PROXY:-} == "$HTTP_PROXY_ADDR" \
+    && ${HTTPS_PROXY:-} == "$HTTP_PROXY_ADDR" \
+    && ${http_proxy:-} == "$HTTP_PROXY_ADDR" \
+    && ${https_proxy:-} == "$HTTP_PROXY_ADDR" \
+]]; then
+    info "cli proxy has already set"
+else
     export HTTP_PROXY=$HTTP_PROXY_ADDR
     export HTTPS_PROXY=$HTTP_PROXY_ADDR
-    export https_proxy=$HTTP_PROXY_ADDR
+    export http_proxy=$HTTP_PROXY_ADDR
     export https_proxy=$HTTP_PROXY_ADDR
     judge "set cli proxy to \"$HTTP_PROXY_ADDR\""
-else
-    info "cli proxy has already set"
 fi

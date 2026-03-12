@@ -10,7 +10,7 @@ else
     else
         info "skip update node version"
     fi
-    if gum comfirm "use $remote_latest_version as default ?"; then
+    if gum confirm "use $remote_latest_version as default ?"; then
         fnm default $remote_latest_version
     fi
 fi

@@ -9,6 +9,11 @@
 0="${${ZERO:-${0:#$ZSH_ARGZERO}}:-${(%):-%N}}"
 0="${${(M)0:#/*}:-$PWD/$0}"
 
+if [[ -n ${RAINB_SCRIPTS_LOADED:-} ]]; then
+    return 0 2>/dev/null || exit 0
+fi
+typeset -g RAINB_SCRIPTS_LOADED=1
+
 FONT='\033[0m'
 GREEN="\033[1;32m"
 RED='\033[1;31m'
@@ -24,6 +29,11 @@ fpath=(
     "${0:h}"/completions
     $fpath
 )
+
+if ! (( $+functions[compdef] )); then
+    autoload -Uz compinit
+    compinit -C -d "${ZDOTDIR:-$HOME}/.zcompdump"
+fi
 
 # load functions
 for __auto_laod_func_file in "${0:h}"/functions/**/*(.); do

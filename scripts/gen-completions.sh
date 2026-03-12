@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
-COMPLETIONS_DIR="completions"
+set -euo pipefail
 
-trash -r "./$COMPLETIONS_DIR"/*
+REPO_ROOT="$(
+  cd "$(dirname "$0")/.."
+  pwd
+)"
+COMPLETIONS_DIR="$REPO_ROOT/completions"
+
+trash -r "$COMPLETIONS_DIR"/*
 
 
 # codegpt completion zsh > "$COMPLETIONS_DIR/_codegpt" # not work now

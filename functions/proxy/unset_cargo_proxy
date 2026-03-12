@@ -1,6 +1,30 @@
-if [[ $(cat "$HOME/.cargo/config.yaml" | grep -c 'proxy') -eq 1 ]]; then
-    sed -ie '/^proxy/d' "$HOME/.cargo/config.yaml"
-    sed -ie '/^\[http/d' "$HOME/.cargo/config.yaml"
+local __CARGO_CONFIG_FILE=${__CARGO_CONFIG_FILE:-"$HOME/.cargo/config.toml"}
+local __CARGO_PROXY_BLOCK_START="# >>> scripts cargo proxy >>>"
+local __CARGO_PROXY_BLOCK_END="# <<< scripts cargo proxy <<<"
+local __CARGO_TMP_FILE
+
+if [[ -f "${__CARGO_CONFIG_FILE}" ]] && grep -Fq "${__CARGO_PROXY_BLOCK_START}" "${__CARGO_CONFIG_FILE}"; then
+    __CARGO_TMP_FILE=$(mktemp)
+    awk \
+        -v start="${__CARGO_PROXY_BLOCK_START}" \
+        -v end="${__CARGO_PROXY_BLOCK_END}" \
+        '
+BEGIN {
+    skip = 0
+}
+$0 == start {
+    skip = 1
+    next
+}
+$0 == end {
+    skip = 0
+    next
+}
+skip == 0 {
+    print
+}
+' "${__CARGO_CONFIG_FILE}" >"${__CARGO_TMP_FILE}"
+    mv "${__CARGO_TMP_FILE}" "${__CARGO_CONFIG_FILE}"
     judge "unset cargo proxy"
 else
     info "cargo proxy has already unset"
