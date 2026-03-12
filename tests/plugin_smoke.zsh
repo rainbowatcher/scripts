@@ -128,6 +128,25 @@ test_set_cargo_proxy_writes_valid_toml() {
   assert_contains "$out" 'proxy = "http://127.0.0.1:8899"' "set_cargo_proxy 应该写入完整代理 URL"
 }
 
+test_set_cargo_mirror_defaults_to_config_toml() {
+  local tmpdir
+  local out
+
+  tmpdir=$(mktemp -d)
+  tmp_dirs+=("$tmpdir")
+  out=$(HOME="$tmpdir" zsh -fc '
+    source "$1/main.zsh" >/dev/null 2>&1
+    mkdir -p "$HOME/.cargo"
+    set_cargo_mirror >/dev/null
+    if [[ -f "$HOME/.cargo/config.toml" && ! -e "$HOME/.cargo/config.yaml" ]]; then
+      cat "$HOME/.cargo/config.toml"
+    fi
+  ' _ "$repo_root")
+
+  assert_contains "$out" "[source.crates-io]" "set_cargo_mirror 应该写入 config.toml"
+  assert_contains "$out" 'replace-with = '\''mirror'\''' "set_cargo_mirror 应该写入 crates.io 镜像配置"
+}
+
 test_clean_downloads_moves_matching_files() {
   local tmpdir
   local out
@@ -186,6 +205,7 @@ test_completion_bootstrap
 test_aliases_degrade_gracefully_without_optional_deps
 test_set_cli_proxy_sets_all_expected_envs
 test_set_cargo_proxy_writes_valid_toml
+test_set_cargo_mirror_defaults_to_config_toml
 test_clean_downloads_moves_matching_files
 test_clean_downloads_keeps_source_when_target_exists
 test_canonical_update_function_name_is_available

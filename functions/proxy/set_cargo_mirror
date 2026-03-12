@@ -1,4 +1,9 @@
-local __CARGO_CONFIG_FILE=${__CARGO_CONFIG_FILE:-"$HOME/.cargo/config.yaml"}
+local __CARGO_CONFIG_FILE=${__CARGO_CONFIG_FILE:-"$HOME/.cargo/config.toml"}
+local __CARGO_CONFIG_DIR=${__CARGO_CONFIG_FILE:h}
+
+mkdir -p "${__CARGO_CONFIG_DIR}"
+touch "${__CARGO_CONFIG_FILE}"
+
 if [[ $(grep -c 'source.mirror' "${__CARGO_CONFIG_FILE}") -eq 1 ]]; then
     info "cargo mirror has already set"
 else
