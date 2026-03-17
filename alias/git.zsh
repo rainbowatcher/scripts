@@ -17,7 +17,7 @@ alias gcl1='git clone --depth 1'
 
 
 # region MARK: log
-alias gl='git log --oneline --cherry'
+alias gl='git log --oneline --graph --decorate'
 alias gll='git log --graph --cherry --pretty=format:"%h <%an> %ar %s"'
 alias gsl='git shortlog'
 # endregion
