@@ -31,9 +31,17 @@ alias gtd='git tag -d'
 
 # region MARK: branch
 alias gba='git branch -a'
+alias gbc='git branch --show-current'
 alias gbd='git branch --delete'
 alias gbrn='git branch -m'
 alias gs='git switch'
+# endregion
+
+
+# region MARK: worktree
+alias gwls='git worktree list'
+alias gwd='git worktree remove'
+alias gba='git worktree add'
 # endregion
 
 
