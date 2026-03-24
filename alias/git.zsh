@@ -41,7 +41,7 @@ alias gs='git switch'
 # region MARK: worktree
 alias gwls='git worktree list'
 alias gwd='git worktree remove'
-alias gba='git worktree add'
+alias gwa='git worktree add'
 # endregion
 
 
