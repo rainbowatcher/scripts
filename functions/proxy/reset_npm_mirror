@@ -1,6 +1,6 @@
-local npm_proxy npm_mirror
-npm_proxy=$(cat $HOME/.npmrc | grep '^proxy')
-npm_mirror=$(cat $HOME/.npmrc | grep '^registry')
+local npm_mirror
+[[ -f "$HOME/.npmrc" ]] || touch "$HOME/.npmrc"
+npm_mirror=$(grep '^registry=' "$HOME/.npmrc" 2>/dev/null)
 if [[ $npm_mirror =~ 'npmmirror' ]]; then
     sed -ie 's$home=.*npmmirror.com$home=https://www.npmjs.com$g' "$HOME/.npmrc"
     sed -ie 's$registry=.*npmmirror.com$registry=https://registry.npmjs.org$g' "$HOME/.npmrc"

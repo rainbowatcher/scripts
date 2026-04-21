@@ -1,7 +1,6 @@
-local npm_proxy npm_mirror
-npm_proxy=$(cat $HOME/.npmrc | grep '^proxy')
-npm_mirror=$(cat $HOME/.npmrc | grep '^registry')
-if [[ $npm_proxy =~ 'http' ]]; then
+local npm_proxy
+local npm_proxy=$(cat $HOME/.npmrc 2>/dev/null | grep '^proxy=')
+if [[ -n $npm_proxy ]]; then
   sed -ie '/^proxy/d' "$HOME/.npmrc"
   sed -ie '/^https-proxy/d' "$HOME/.npmrc"
   judge "unset npm proxy"

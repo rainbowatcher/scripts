@@ -1,4 +1,5 @@
 local npm_proxy npm_mirror
+[[ -z $HTTP_PROXY_ADDR ]] && error "HTTP_PROXY_ADDR is not set"
 npm_proxy=$(cat $HOME/.npmrc | grep '^proxy')
 npm_mirror=$(cat $HOME/.npmrc | grep '^registry')
 if [[ $npm_proxy == '' ]]; then
