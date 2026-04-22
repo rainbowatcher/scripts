@@ -1,4 +1,4 @@
-[ ! ! type ni &>/dev/null ] && return
+! type ni &>/dev/null && return
 
 alias nio="ni --prefer-offline"
 alias nid="ni -D"
@@ -6,7 +6,7 @@ alias nido="ni -D --prefer-offline"
 alias nidw="ni -wD"
 alias niw="ni -w"
 
-[ ! ! type nr &>/dev/null ] && return
+! type nr &>/dev/null && return
 
 alias d="nr dev"
 alias s="nr start"

@@ -1,4 +1,4 @@
-[ ! ! type git &>/dev/null ] && return
+! type git &>/dev/null && return
 
 # region: MARK: commit
 alias gaa='git add .'

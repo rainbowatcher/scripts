@@ -1,6 +1,5 @@
-[ ! ! type hyperfile &>/dev/null ] && return
+! type hyperfine &>/dev/null && return
 
-alias hf="hyperfine"
-alias hf5="hf -r5 -w5"
+alias hf5="hyperfine -r5 -w5"
 
 
