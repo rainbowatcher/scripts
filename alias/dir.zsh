@@ -1,3 +1,2 @@
-alias i="cd $HOME/WorkSpace/private"
-alias p="cd $HOME/WorkSpace/public"
-alias tmp="cd $HOME/WorkSpace/temp"
+alias i="cd $HOME/w/i"
+alias p="cd $HOME/w/p"
