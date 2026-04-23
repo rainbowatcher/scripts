@@ -66,6 +66,7 @@ WORDCHARS=''
 
 # use emacs mode key mappings
 bindkey -e
+[[ -n "${terminfo[kdch1]}" ]] && bindkey "${terminfo[kdch1]}" delete-char
 bindkey '^[[3;3~' kill-word  # 向右删除一个单词 (Alt + Delete)
 bindkey '^U' backward-kill-line # Cmd + backspace
 bindkey "^[[3;9~" kill-line # Cmd + Delete
