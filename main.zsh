@@ -22,17 +22,15 @@ BLUE='\033[1;36m'
 
 source "${0:h}"/config/rc.zsh
 
-# add folder in functions to fpath
-fpath=(
-    # / for directory, N for empty folder to empty string
-    "${0:h}"/functions/**/*(N/)
-    "${0:h}"/completions
-    $fpath
-)
+# add folder in functions and completions to fpath
+# （fpath.zsh 会先被 sheldon 加载一次，这里再走一遍是为了单独 source 本文件时也成立）
+source "${0:h}"/fpath.zsh
 
+# mise 已经在 hook-env 里跑过 compinit 了；-i 而非 -C，好让新增的补全文件
+# 在下一次启动时被发现
 if ! (( $+functions[compdef] )); then
     autoload -Uz compinit
-    compinit -C -d "${ZDOTDIR:-$HOME}/.zcompdump"
+    compinit -i -d "${ZDOTDIR:-$HOME}/.zcompdump"
 fi
 
 # load functions
