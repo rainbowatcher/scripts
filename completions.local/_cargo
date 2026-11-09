@@ -1,0 +1,80 @@
+#compdef cargo
+#
+# cargo 的 crate 名补全。
+#
+# 官方 _cargo（rustup / homebrew 生成）对 `cargo add` 和 `cargo install` 的位置参数
+# 只做 `_guard "^-*" "crate name"`，也就是只拒绝以 - 开头的词，不产生任何候选，
+# 所以 `cargo add <TAB>` 一直是空的。
+#
+# 这里包一层：把官方实现改名成 _cargo_official 载入，只在需要 crate 名的位置插入
+# 候选，其余原样转发，flag 和子命令的补全仍由官方实现负责。
+#
+# 注意：本文件被 autoload 时，文件体本身就是 `_cargo` 的函数体，所以结尾必须显式
+# 调用分发函数，否则按 Tab 什么也不会发生。
+
+# 载入官方实现并改名。来源优先 rustup 的 sysroot（跟着当前工具链走），
+# 其次 homebrew 的 site-functions。
+_cargo_load_official() {
+    (( $+functions[_cargo_official] )) && return 0
+
+    local src
+    for src in \
+        "$(rustc --print sysroot 2>/dev/null)/share/zsh/site-functions/_cargo" \
+        "${HOMEBREW_PREFIX:-/opt/homebrew}/share/zsh/site-functions/_cargo"; do
+        [[ -r $src ]] || continue
+        # 文件末尾那行裸 `_cargo` 是自调用，改名后必须丢掉，否则会递归
+        eval "$(sed -e 's/^_cargo() {/_cargo_official() {/' -e 's/^_cargo$/:/' "$src")"
+        (( $+functions[_cargo_official] )) && return 0
+    done
+
+    return 1
+}
+
+# crate 名候选。先查本地 cargo 索引缓存（几十毫秒、离线可用），
+# 前缀命中不到再问 crates.io。
+#
+# 注意 `cargo search` 必须带 --registry crates-io：本机 ~/.cargo/config.toml 把
+# crates-io 换成了镜像，不带这个参数会直接报
+# "crates-io is replaced with non-remote-registry source registry"。
+_cargo_crates() {
+    local -a names
+    local dir
+
+    if [[ -n $PREFIX ]]; then
+        for dir in "${CARGO_HOME:-$HOME/.cargo}"/registry/index/*/.cache(N/); do
+            names+=( ${(f)"$(find "$dir" -type f -iname "${PREFIX}*" 2>/dev/null | sed 's|.*/||')"} )
+        done
+        names=( ${(u)names} )
+    fi
+
+    if (( $#names )); then
+        compadd -X 'crate (local index)' -a names
+        return 0
+    fi
+
+    # 空前缀不查网络：crates.io 会返回两万多个结果
+    [[ -z $PREFIX ]] && return 1
+
+    local line
+    local -a remote
+    for line in ${(f)"$(cargo search --registry crates-io --color=never --limit 100 -q -- "$PREFIX" 2>/dev/null)"}; do
+        [[ $line == ...* ]] && continue
+        remote+=( "${line%% = *}" )
+    done
+    (( $#remote )) && compadd -X 'crate (crates.io)' -a remote
+}
+
+_cargo_dispatch() {
+    _cargo_load_official || return 1
+
+    local sub=${words[2]}
+    if [[ $sub == add && $CURRENT -eq 3 ]] || [[ $sub == install && $CURRENT -ge 3 ]]; then
+        if [[ $PREFIX != -* ]] && _cargo_crates; then
+            return 0
+        fi
+    fi
+
+    _cargo_official "$@"
+}
+
+_cargo_dispatch "$@"
