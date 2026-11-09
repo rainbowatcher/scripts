@@ -1,6 +1,16 @@
-local target=${1:-.}
-if ! type gdu &>/dev/null; then
-    gdu -ahd1 $target | sort -h
+# 内联注释：确保遵循 Zsh 语法
+emulate -L zsh
+
+local target="${1:-.}"
+target="${target:A}"
+
+if (( $+commands[gdu] )); then
+    gdu -ahd1 "$target" | sort -h
 else
-    du -sh $target/* | sort -h
+    local files=( "$target"/*(ND) )
+    if (( ${#files} > 0 )); then
+        du -sh "${files[@]}" | sort -h
+    else
+        echo "Directory is empty."
+    fi
 fi
