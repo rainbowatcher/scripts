@@ -91,6 +91,10 @@ use = ["main.zsh"]
 
 没装 mise 的话只配 `[plugins.scripts]` 即可，`main.zsh` 会自己 source `fpath.zsh`。
 
+`fpath.zsh` 还会把 Homebrew 的 `share/zsh/site-functions` 加进 `fpath`：`brew shellenv`
+不带参数时并不输出 fpath，不加的话 brew 装的 `cargo`/`rg`/`fd`/`bat`/`gh`/`mise`
+等补全全是空的。
+
 然后在 `~/.zshrc` 中启用 `sheldon`：
 
 ```zsh
