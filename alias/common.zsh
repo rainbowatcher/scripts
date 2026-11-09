@@ -14,8 +14,15 @@ alias lg='ls -lbGahF --time-style long-iso'
 alias lx='ls -lbhHigUmuSa@ --time-style=long-iso --git --color-scale'
 alias lsa='ls -a'
 
+# rm 走废纸篓。优先指向全局 rm shim（~/.local/bin/rm，非交互式 shell 与 agent
+# 也通过 PATH 命中它），shim 保留 rm 语义：-f 对不存在的文件返回 0、缺操作数报错、
+# -i 交互确认；裸 trash 不具备这些行为。shim 缺失时才退回 trash。
 if type trash &>/dev/null; then
-    alias rm='trash'
+    if [[ -x "$HOME/.local/bin/rm" ]]; then
+        alias rm="$HOME/.local/bin/rm"
+    else
+        alias rm='trash'
+    fi
 fi
 
 # list whats inside packed file
