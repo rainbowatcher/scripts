@@ -74,10 +74,22 @@ cat >"$README_FILE" <<'EOF'
 先把本地插件配置到 `~/.config/sheldon/plugins.toml`：
 
 ```toml
+# fpath 必须排在 mise 前面：mise 的 hook-env 会跑 compinit，
+# 那时不在 fpath 里的补全不会被注册
+[plugins.scripts-fpath]
+local = "~/path/to/scripts"
+use = ["fpath.zsh"]
+
+[plugins.mise]
+inline = 'eval "$(mise activate zsh)"'
+
+# 函数和 alias 排在 mise 后面，alias 里的 `type <tool>` 才看得到 mise 装的工具
 [plugins.scripts]
 local = "~/path/to/scripts"
 use = ["main.zsh"]
 ```
+
+没装 mise 的话只配 `[plugins.scripts]` 即可，`main.zsh` 会自己 source `fpath.zsh`。
 
 然后在 `~/.zshrc` 中启用 `sheldon`：
 

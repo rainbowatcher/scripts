@@ -9,10 +9,22 @@
 先把本地插件配置到 `~/.config/sheldon/plugins.toml`：
 
 ```toml
+# fpath 必须排在 mise 前面：mise 的 hook-env 会跑 compinit，
+# 那时不在 fpath 里的补全不会被注册
+[plugins.scripts-fpath]
+local = "~/path/to/scripts"
+use = ["fpath.zsh"]
+
+[plugins.mise]
+inline = 'eval "$(mise activate zsh)"'
+
+# 函数和 alias 排在 mise 后面，alias 里的 `type <tool>` 才看得到 mise 装的工具
 [plugins.scripts]
 local = "~/path/to/scripts"
 use = ["main.zsh"]
 ```
+
+没装 mise 的话只配 `[plugins.scripts]` 即可，`main.zsh` 会自己 source `fpath.zsh`。
 
 然后在 `~/.zshrc` 中启用 `sheldon`：
 
@@ -51,9 +63,8 @@ eval "$(sheldon source)"
 
 ### dir
 
-- i: `cd $HOME/WorkSpace/private`
-- p: `cd $HOME/WorkSpace/public`
-- tmp: `cd $HOME/WorkSpace/temp`
+- i: `cd $HOME/w/i`
+- p: `cd $HOME/w/p`
 
 ### docker
 
@@ -77,15 +88,19 @@ eval "$(sheldon source)"
 - gpl: `git pull`
 - gcl: `git clone`
 - gcl1: `git clone --depth 1`
-- gl: `git log --oneline --cherry`
+- gl: `git log --oneline --graph --decorate`
 - gll: `git log --graph --cherry --pretty=format:"%h <%an> %ar %s"`
 - gsl: `git shortlog`
 - gtl: `git tag -l`
 - gtd: `git tag -d`
 - gba: `git branch -a`
+- gbc: `git branch --show-current`
 - gbd: `git branch --delete`
 - gbrn: `git branch -m`
 - gs: `git switch`
+- gwls: `git worktree list`
+- gwd: `git worktree remove`
+- gwa: `git worktree add`
 - gst: `git status -s`
 - gcat: `git cat-file`
 - gcf: `git config -l`
@@ -96,8 +111,7 @@ eval "$(sheldon source)"
 
 ### hyperfine
 
-- hf: `hyperfine`
-- hf5: `hf -r5 -w5`
+- hf5: `hyperfine -r5 -w5`
 
 ### just
 
@@ -138,10 +152,8 @@ eval "$(sheldon source)"
 
 ## 补全
 
-- pip
 - delta
-- fnm
-- npm
+- entire
 - pnpm
 
 ## 函数
@@ -212,9 +224,5 @@ eval "$(sheldon source)"
 
 ### update
 
-- upgrade_bun
-- upgrade_bun_global_pkg
-- upgrade_node
-- upgrade_sdkman
 - upgrade_sheldon_plugin
 
