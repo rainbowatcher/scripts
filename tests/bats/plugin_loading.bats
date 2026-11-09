@@ -32,6 +32,36 @@ load './test_helper.bash'
   [[ "$output" != *"missing"* ]]
 }
 
+@test "fpath.zsh 单独加载就能让 compinit 注册本仓库的补全" {
+  run_repo_zsh_with_home '
+    autoload -Uz compinit
+    source "$1/fpath.zsh"
+    compinit -i -d "$HOME/.zcompdump"
+    print -- "${_comps[entire]-missing}"
+  '
+
+  [ "$status" -eq 0 ]
+  [ "$output" = "_entire" ]
+}
+
+@test "fpath.zsh 重复加载不会重复注册 fpath" {
+  run_repo_zsh '
+    source "$1/fpath.zsh" >/dev/null 2>&1
+    first=${#fpath}
+    source "$1/fpath.zsh" >/dev/null 2>&1
+    second=${#fpath}
+
+    if [[ $first -eq $second ]]; then
+      print -- stable
+    else
+      print -- "$first:$second"
+    fi
+  '
+
+  [ "$status" -eq 0 ]
+  [ "$output" = "stable" ]
+}
+
 @test "缺少可选依赖时 alias 会安全降级" {
   run_repo_zsh '
     export PATH=/nonexistent
@@ -46,14 +76,12 @@ load './test_helper.bash'
   [[ "$output" != *"trash"* ]]
 }
 
-@test "只暴露规范命名的 bun 全局升级函数" {
+@test "只暴露规范命名的 sheldon 升级函数" {
   run_repo_zsh '
     source "$1/main.zsh" >/dev/null 2>&1
-    whence -w upgrade_bun_global_pkg
-    whence -w upgrade_bun_grobal_pkg || true
+    whence -w upgrade_sheldon_plugin
   '
 
   [ "$status" -eq 0 ]
-  [[ "$output" == *"upgrade_bun_global_pkg: function"* ]]
-  [[ "$output" == *"upgrade_bun_grobal_pkg: none"* ]]
+  [[ "$output" == *"upgrade_sheldon_plugin: function"* ]]
 }
